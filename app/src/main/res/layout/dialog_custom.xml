@@ -9,14 +9,18 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxBackgroundMode="outline">
+        android:layout_marginTop="16dp"
+        android:hint="@string/cpf"
+        app:boxBackgroundMode="filled">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/blue_light"
-            android:padding="16dp" />
+            android:inputType="number"
+            android:maxLength="11"
+            android:padding="20dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

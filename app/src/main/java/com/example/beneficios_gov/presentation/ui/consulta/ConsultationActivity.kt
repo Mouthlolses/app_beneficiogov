@@ -2,8 +2,6 @@ package com.example.beneficios_gov.presentation.ui.consulta
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -16,8 +14,13 @@ import com.google.android.material.textfield.TextInputEditText
 
 class ConsultationActivity : AppCompatActivity() {
 
+
     private val binding by lazy {
         ActivityConsultationBinding.inflate(layoutInflater)
+    }
+
+    private fun exibirMensagem(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,13 +36,13 @@ class ConsultationActivity : AppCompatActivity() {
             val openDialog = AlertDialog.Builder(context)
                 .setTitle("Informe o seu CPF")
                 .setView(dialogView)
-                .setPositiveButton("OK") { dialog, _ ->
-                    val userInput = editText.text.toString()
-                    Toast.makeText(
-                        context,
-                        "Esses é o CPF informado: $userInput",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                .setPositiveButton("OK") { _, _ ->
+                    val userInput = editText.text?.toString()?.trim() ?: ""
+                    if (userInput.isNotEmpty()) {
+                        exibirMensagem("Seu CPF é: $userInput")
+                    } else {
+                        exibirMensagem("Digite o seu CPF")
+                    }
                 }
                 .setNegativeButton("Fechar", null)
                 .create()
