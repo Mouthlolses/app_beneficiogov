@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">beneficios_gov</string>
-    <string name="consulta_cpfandnis">Consulte os registros <b>Bolsa Família</b> por <b>CPF</b> ou <b>NIS</b>/<b>Período</b></string>
+    <string name="consulta_cpfandnis">Consulte os registros <b>Bolsa Família</b> por <b>CPF</b> ou <b>NIS</b>/<b>Período.</b></string>
     <string name="consulte_seu_beneficio">Consulte Seu Beneficio</string>
     <string name="cpf">CPF</string>
     <string name="nis">NIS</string>
@@ -9,4 +9,7 @@
     <string name="nisInfo">Insira seu NIS de 11 dígitos</string>
     <string name="periodoInfo">Ex: 03/2024</string>
     <string name="access">Acessar</string>
+    <string name="logo">logo</string>
+    <string name="consultas_disponiveis">Consultas Disponíveis</string>
+    <string name="bolsa_familia">Bolsa Família</string>
 </resources>

@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
     tools:context=".presentation.ui.home.HomeActivity">
 
     <Button
@@ -22,23 +21,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <FrameLayout
+
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="300dp"
-        android:layout_height="220dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="102dp"
-        android:background="@drawable/gradient3_background"
+        android:layout_height="300dp"
+        android:layout_marginTop="100dp"
+        android:contentDescription="@string/logo"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_one"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="300dp"
-            android:layout_height="220dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/logo_one" />
-    </FrameLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

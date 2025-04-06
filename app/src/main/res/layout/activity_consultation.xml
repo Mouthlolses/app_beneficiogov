@@ -5,15 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient2_background"
     tools:context=".presentation.ui.consulta.ConsultationActivity">
+
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_bold"
-        android:text="Consultas Disponíveis"
+        android:text="@string/consultas_disponiveis"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,6 +23,7 @@
         app:layout_constraintVertical_bias="0.022" />
 
     <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/materialDivider"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginBottom="20dp"
@@ -58,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Bolsa Família"
+                android:text="@string/bolsa_familia"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />
