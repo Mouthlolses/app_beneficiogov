@@ -2,6 +2,7 @@ package com.example.beneficios_gov.presentation.ui.consulta
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -30,24 +31,85 @@ class ConsultationActivity : AppCompatActivity() {
 
         binding.cardView.setOnClickListener {
             val context = it.context
-            val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_custom, null)
-            val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInput)
+            val dialogViewChoice =
+                LayoutInflater.from(context).inflate(R.layout.dialog_choice, null)
 
-            val openDialog = AlertDialog.Builder(context)
-                .setTitle("Informe o seu CPF")
-                .setView(dialogView)
-                .setPositiveButton("OK") { _, _ ->
-                    val userInput = editText.text?.toString()?.trim() ?: ""
-                    if (userInput.isNotEmpty()) {
-                        exibirMensagem("Seu CPF é: $userInput")
-                    } else {
-                        exibirMensagem("Digite o seu CPF")
-                    }
-                }
-                .setNegativeButton("Fechar", null)
+            val btnCPF = dialogViewChoice.findViewById<Button>(R.id.btnCPF)
+            val btnNIS = dialogViewChoice.findViewById<Button>(R.id.btnNIS)
+            val btnPeriodo = dialogViewChoice.findViewById<Button>(R.id.btnPeriodo)
+
+            val dialogChoice = AlertDialog.Builder(context)
+                .setTitle("Como deseja consultar?")
+                .setView(dialogViewChoice)
                 .create()
 
-            openDialog.show()
+            btnCPF.setOnClickListener {
+
+                val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_cpf, null)
+                val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputCpf)
+
+                AlertDialog.Builder(context)
+                    .setTitle("Digite o seu CPF")
+                    .setView(dialogView)
+                    .setPositiveButton("OK") { _, _ ->
+                        val userInput = editText.text?.toString()?.trim() ?: ""
+                        if (userInput.isNotEmpty()) {
+                            exibirMensagem("O seu CPF é: $userInput")
+                            dialogChoice.dismiss()
+                        } else {
+                            exibirMensagem("Digite o seu CPF")
+                        }
+
+                    }
+                    .setNegativeButton("Fechar", null)
+                    .create()
+                    .show()
+            }
+
+            btnNIS.setOnClickListener {
+
+                val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_nis, null)
+                val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputNis)
+
+                AlertDialog.Builder(context)
+                    .setTitle("Digite o seu NIS")
+                    .setView(dialogView)
+                    .setPositiveButton("OK") { _, _ ->
+                        val userInput = editText.text?.toString()?.trim() ?: ""
+                        if (userInput.isNotEmpty()) {
+                            exibirMensagem("o Número do seu NIS é: $userInput")
+                            dialogChoice.dismiss()
+                        } else {
+                            exibirMensagem("Digite o seu NIS")
+                        }
+                    }
+                    .setNegativeButton("Fechar", null)
+                    .create()
+                    .show()
+            }
+
+            btnPeriodo.setOnClickListener {
+
+                val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_periodo, null)
+                val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputPeriodo)
+
+                AlertDialog.Builder(context)
+                    .setTitle("Digite o período")
+                    .setView(dialogView)
+                    .setPositiveButton("OK") { _, _ ->
+                        val userInput = editText.text?.toString()?.trim() ?: ""
+                        if (userInput.isNotEmpty()) {
+                            exibirMensagem("O Período consultado é: $userInput")
+                            dialogChoice.dismiss()
+                        } else {
+                            exibirMensagem("Digite o periodo que deseja consultar")
+                        }
+                    }
+                    .setNegativeButton("Fechar", null)
+                    .create()
+                    .show()
+            }
+            dialogChoice.show()
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

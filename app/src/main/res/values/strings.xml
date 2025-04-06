@@ -3,4 +3,9 @@
     <string name="consulta_cpfandnis">Consulte os registros <b>Bolsa Família</b> por <b>CPF</b> ou <b>NIS</b>/<b>Período</b></string>
     <string name="consulte_seu_beneficio">Consulte Seu Beneficio</string>
     <string name="cpf">CPF</string>
+    <string name="nis">NIS</string>
+    <string name="periodo">Período</string>
+    <string name="cpfInfo">Ex: 12345678901</string>
+    <string name="nisInfo">Insira seu NIS de 11 dígitos</string>
+    <string name="periodoInfo">Ex: 03/2024</string>
 </resources>
