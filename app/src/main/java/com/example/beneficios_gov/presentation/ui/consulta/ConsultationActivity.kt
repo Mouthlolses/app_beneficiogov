@@ -41,6 +41,7 @@ class ConsultationActivity : AppCompatActivity() {
             val dialogChoice = AlertDialog.Builder(context)
                 .setTitle("Como deseja consultar?")
                 .setView(dialogViewChoice)
+                .setNegativeButton("Fechar", null)
                 .create()
 
             btnCPF.setOnClickListener {
@@ -51,7 +52,7 @@ class ConsultationActivity : AppCompatActivity() {
                 AlertDialog.Builder(context)
                     .setTitle("Digite o seu CPF")
                     .setView(dialogView)
-                    .setPositiveButton("OK") { _, _ ->
+                    .setPositiveButton("CONSULTAR") { _, _ ->
                         val userInput = editText.text?.toString()?.trim() ?: ""
                         if (userInput.isNotEmpty()) {
                             exibirMensagem("O seu CPF é: $userInput")
@@ -74,7 +75,7 @@ class ConsultationActivity : AppCompatActivity() {
                 AlertDialog.Builder(context)
                     .setTitle("Digite o seu NIS")
                     .setView(dialogView)
-                    .setPositiveButton("OK") { _, _ ->
+                    .setPositiveButton("CONSULTAR") { _, _ ->
                         val userInput = editText.text?.toString()?.trim() ?: ""
                         if (userInput.isNotEmpty()) {
                             exibirMensagem("o Número do seu NIS é: $userInput")
@@ -96,7 +97,7 @@ class ConsultationActivity : AppCompatActivity() {
                 AlertDialog.Builder(context)
                     .setTitle("Digite o período")
                     .setView(dialogView)
-                    .setPositiveButton("OK") { _, _ ->
+                    .setPositiveButton("CONSULTAR") { _, _ ->
                         val userInput = editText.text?.toString()?.trim() ?: ""
                         if (userInput.isNotEmpty()) {
                             exibirMensagem("O Período consultado é: $userInput")

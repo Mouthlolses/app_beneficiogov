@@ -8,4 +8,5 @@
     <string name="cpfInfo">Ex: 12345678901</string>
     <string name="nisInfo">Insira seu NIS de 11 dígitos</string>
     <string name="periodoInfo">Ex: 03/2024</string>
+    <string name="access">Acessar</string>
 </resources>

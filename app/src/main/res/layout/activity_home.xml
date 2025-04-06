@@ -11,28 +11,34 @@
     <Button
         android:id="@+id/buttonElevated"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="42dp"
+        android:layout_height="52dp"
+        android:layout_margin="48dp"
         android:backgroundTint="@color/green"
         android:elevation="16dp"
-        android:text="Acesse"
+        android:text="@string/access"
         android:textAllCaps="false"
+        app:cornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:fontFamily="@font/roboto_black"
-        android:text="@string/consulte_seu_beneficio"
-        android:textColor="@color/white"
-        android:textSize="32sp"
-        android:textStyle="bold"
+    <FrameLayout
+        android:layout_width="300dp"
+        android:layout_height="220dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="102dp"
+        android:background="@drawable/gradient3_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="300dp"
+            android:layout_height="220dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo_one" />
+    </FrameLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
