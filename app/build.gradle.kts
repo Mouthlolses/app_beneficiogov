@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.beneficios_gov"
-        minSdk = 29
+        minSdk = 28
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"

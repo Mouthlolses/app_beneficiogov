@@ -28,7 +28,9 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="@id/guideline" />
+        app:layout_constraintBottom_toBottomOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -40,8 +42,10 @@
     <com.google.android.material.card.MaterialCardView
 
         android:id="@+id/cardView"
-        android:layout_width="360dp"
+        android:layout_width="match_parent"
         android:layout_height="130dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:backgroundTint="@color/white"
         android:clickable="true"
         app:cardCornerRadius="8dp"
