@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.beneficios_gov.R
@@ -43,13 +44,18 @@ class ConsultationActivity : AppCompatActivity() {
                 .setView(dialogViewChoice)
                 .setNegativeButton("Fechar", null)
                 .create()
+            dialogChoice.setOnShowListener {
+                dialogChoice.getButton(AlertDialog.BUTTON_NEGATIVE)
+                    ?.setTextColor(ContextCompat.getColor(context, R.color.gray))
+            }
 
             btnCPF.setOnClickListener {
 
                 val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_cpf, null)
                 val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputCpf)
 
-                AlertDialog.Builder(context)
+
+                val alertDialog = AlertDialog.Builder(context)
                     .setTitle("Digite o seu CPF")
                     .setView(dialogView)
                     .setPositiveButton("CONSULTAR") { _, _ ->
@@ -60,11 +66,17 @@ class ConsultationActivity : AppCompatActivity() {
                         } else {
                             exibirMensagem("Digite o seu CPF")
                         }
-
                     }
                     .setNegativeButton("Fechar", null)
                     .create()
-                    .show()
+                alertDialog.setOnShowListener {
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                        ?.setTextColor(ContextCompat.getColor(context, R.color.verde_esmeralda))
+
+                    alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                        ?.setTextColor(ContextCompat.getColor(context, R.color.gray))
+                }
+                alertDialog.show()
             }
 
             btnNIS.setOnClickListener {
@@ -72,7 +84,7 @@ class ConsultationActivity : AppCompatActivity() {
                 val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_nis, null)
                 val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputNis)
 
-                AlertDialog.Builder(context)
+                val alertDialog = AlertDialog.Builder(context)
                     .setTitle("Digite o seu NIS")
                     .setView(dialogView)
                     .setPositiveButton("CONSULTAR") { _, _ ->
@@ -86,7 +98,14 @@ class ConsultationActivity : AppCompatActivity() {
                     }
                     .setNegativeButton("Fechar", null)
                     .create()
-                    .show()
+                alertDialog.setOnShowListener {
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                        ?.setTextColor(ContextCompat.getColor(context, R.color.verde_esmeralda))
+
+                    alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                        ?.setTextColor(ContextCompat.getColor(context, R.color.gray))
+                }
+                alertDialog.show()
             }
 
             btnPeriodo.setOnClickListener {
@@ -94,7 +113,7 @@ class ConsultationActivity : AppCompatActivity() {
                 val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_periodo, null)
                 val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputPeriodo)
 
-                AlertDialog.Builder(context)
+                val alertDialog = AlertDialog.Builder(context)
                     .setTitle("Digite o período")
                     .setView(dialogView)
                     .setPositiveButton("CONSULTAR") { _, _ ->
@@ -108,7 +127,14 @@ class ConsultationActivity : AppCompatActivity() {
                     }
                     .setNegativeButton("Fechar", null)
                     .create()
-                    .show()
+                alertDialog.setOnShowListener {
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                        ?.setTextColor(ContextCompat.getColor(context, R.color.verde_esmeralda))
+
+                    alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                        ?.setTextColor(ContextCompat.getColor(context, R.color.gray))
+                }
+                alertDialog.show()
             }
             dialogChoice.show()
         }
