@@ -83,9 +83,21 @@
                 android:textSize="16sp"
                 app:drawableStartCompat="@drawable/ic_arrow_right" />
 
-
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/white"
+        app:icon="@drawable/ic_history_line"
+        android:text="@string/consultas_anteriores"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.99"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

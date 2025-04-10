@@ -12,4 +12,5 @@
     <string name="logo">logo</string>
     <string name="consultas_disponiveis">Consultas Disponíveis</string>
     <string name="bolsa_familia">Bolsa Família</string>
+    <string name="consultas_anteriores">Histórico</string>
 </resources>
