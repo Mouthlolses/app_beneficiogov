@@ -16,6 +16,9 @@
       <SelectionState runConfigName="aoClicarNoBotaoCpf_abreDialogComTextoEsperado()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="aoClicarNoBotaoDaHome_levaParaTelaConsulta()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>
