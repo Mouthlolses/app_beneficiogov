@@ -1,0 +1,46 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do repositório
+      uses: actions/checkout@v3
+
+    - name: Instalar Java 11 (Temurin)
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+
+    - name: Configurar permissões do Gradle
+      run: chmod +x ./gradlew
+
+    - name: Build do APK (Debug)
+      run: ./gradlew assembleDebug
+
+    - name: Rodar testes unitários
+      run: ./gradlew testDebugUnitTest
+
+    - name: Iniciar emulador Android
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 30
+        target: google_apis
+        arch: x86_64
+        profile: pixel
+        script: ./gradlew connectedDebugAndroidTest
+
+    - name: Salvar APK como artefato
+      uses: actions/upload-artifact@v3
+      with:
+        name: app-debug-apk
+        path: app/build/outputs/apk/debug/app-debug.apk
