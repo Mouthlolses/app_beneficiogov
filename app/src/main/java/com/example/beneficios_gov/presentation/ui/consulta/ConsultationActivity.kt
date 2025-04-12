@@ -60,18 +60,6 @@ class ConsultationActivity : AppCompatActivity() {
                 val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_cpf, null)
                 val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputCpf)
 
-
-                fun salvar(titleCpf: String) {
-                    val sql = "INSERT INTO consultas VALUES(null, '$titleCpf', 'Descricao..');"
-
-                    try {
-                        database.writableDatabase.execSQL(sql)
-                        Log.i("info.db", "Sucesso ao inserir")
-                    } catch (e: Exception) {
-                        Log.i("info.db", "Erro ao Inserir, $e")
-                    }
-                }
-
                 val alertDialog = AlertDialog.Builder(context)
                     .setTitle("Digite o seu CPF")
                     .setView(dialogView)
@@ -171,6 +159,39 @@ class ConsultationActivity : AppCompatActivity() {
         }
     }
 
+    private fun salvar(titleCpf: String) {
+        val sql = "INSERT INTO consultas VALUES(null, '$titleCpf', 'Descricao..');"
+
+        try {
+            database.writableDatabase.execSQL(sql)
+            Log.i("info.db", "Sucesso ao inserir")
+        } catch (e: Exception) {
+            Log.i("info.db", "Erro ao Inserir, $e")
+        }
+    }
+
+   /* private fun excluir() {
+        val sql =
+            "DELETE FROM ${DatabaseHelper.TABELA_CONSULTAS}" +
+                    " WHERE ${DatabaseHelper.ID_CONSULTA} = 5"
+        try {
+            database.writableDatabase.execSQL(sql)
+            Log.i("info.db", "Sucesso ao Excluir")
+        } catch (e: Exception) {
+            Log.i("info.db", "Erro ao Excluir, $e")
+        }
+    }*/
+    /*    private fun atualizar(titleCpf: String){
+            val sql = "UPDATE consultas SET titulo = '$titleCpf' WHERE ID_CONSULTA = 1;"
+
+            try {
+                database.writableDatabase.execSQL(sql)
+                Log.i("info.db", "Sucesso ao Atualizar")
+            } catch (e: Exception) {
+                Log.i("info.db", "Erro ao Atualizar, $e")
+            }
+        }*/
+
     private fun listarConsultaCpf() {
         val sql = "SELECT * FROM ${DatabaseHelper.TABELA_CONSULTAS};"
         val cursor = database.readableDatabase
@@ -187,5 +208,6 @@ class ConsultationActivity : AppCompatActivity() {
             Log.i("info.db", "id: $idConsulta - $titulo - $descricao")
         }
     }
+
 
 }
