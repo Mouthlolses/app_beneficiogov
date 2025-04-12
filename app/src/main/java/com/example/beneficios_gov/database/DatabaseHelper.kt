@@ -8,13 +8,19 @@ import android.util.Log
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(
     context, "beneficios.db", null, 1
 ) {
+    companion object{
+        const val TABELA_CONSULTAS = "consultas"
+        const val ID_CONSULTA = "id_consulta"
+        const val TITULO = "titulo"
+        const val DESCRICAO = "descricao"
+    }
     //Iniciado apenas uma vez quando o user instala o app em seu aparelho
     override fun onCreate(db: SQLiteDatabase?) {
         Log.i("info.db", "Executou onCreate")
-        val sql = "CREATE TABLE IF NOT EXISTS consultas (" +
-                "id_consulta integer not null PRIMARY KEY AUTOINCREMENT," +
-                "titulo varchar (100)," +
-                " descricao text" +
+        val sql = "CREATE TABLE IF NOT EXISTS $TABELA_CONSULTAS (" +
+                "$ID_CONSULTA integer not null PRIMARY KEY AUTOINCREMENT," +
+                "$TITULO varchar (100)," +
+                "$DESCRICAO text" +
                 ");"
 
         try {

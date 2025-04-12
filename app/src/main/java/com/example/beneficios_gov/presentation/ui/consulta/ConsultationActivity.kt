@@ -1,6 +1,7 @@
 package com.example.beneficios_gov.presentation.ui.consulta
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.Toast
@@ -11,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.beneficios_gov.R
+import com.example.beneficios_gov.database.DatabaseHelper
 import com.example.beneficios_gov.databinding.ActivityConsultationBinding
 import com.google.android.material.textfield.TextInputEditText
 
@@ -19,6 +21,10 @@ class ConsultationActivity : AppCompatActivity() {
 
     private val binding by lazy {
         ActivityConsultationBinding.inflate(layoutInflater)
+    }
+
+    private val database by lazy {
+        DatabaseHelper(this)
     }
 
     private fun exibirMensagem(text: String) {
@@ -55,6 +61,17 @@ class ConsultationActivity : AppCompatActivity() {
                 val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputCpf)
 
 
+                fun salvar(titleCpf: String) {
+                    val sql = "INSERT INTO consultas VALUES(null, '$titleCpf', 'Descricao..');"
+
+                    try {
+                        database.writableDatabase.execSQL(sql)
+                        Log.i("info.db", "Sucesso ao inserir")
+                    } catch (e: Exception) {
+                        Log.i("info.db", "Erro ao Inserir, $e")
+                    }
+                }
+
                 val alertDialog = AlertDialog.Builder(context)
                     .setTitle("Digite o seu CPF")
                     .setView(dialogView)
@@ -62,6 +79,7 @@ class ConsultationActivity : AppCompatActivity() {
                         val userInput = editText.text?.toString()?.trim() ?: ""
                         if (userInput.isNotEmpty()) {
                             exibirMensagem("O seu CPF é: $userInput")
+                            salvar(userInput)
                             dialogChoice.dismiss()
                         } else {
                             exibirMensagem("Digite o seu CPF")
@@ -83,6 +101,7 @@ class ConsultationActivity : AppCompatActivity() {
 
                 val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_nis, null)
                 val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputNis)
+
 
                 val alertDialog = AlertDialog.Builder(context)
                     .setTitle("Digite o seu NIS")
@@ -110,8 +129,10 @@ class ConsultationActivity : AppCompatActivity() {
 
             btnPeriodo.setOnClickListener {
 
-                val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_periodo, null)
-                val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputPeriodo)
+                val dialogView =
+                    LayoutInflater.from(context).inflate(R.layout.dialog_periodo, null)
+                val editText =
+                    dialogView.findViewById<TextInputEditText>(R.id.editTextInputPeriodo)
 
                 val alertDialog = AlertDialog.Builder(context)
                     .setTitle("Digite o período")
@@ -139,10 +160,32 @@ class ConsultationActivity : AppCompatActivity() {
             dialogChoice.show()
         }
 
+        binding.btnHistorico.setOnClickListener {
+            listarConsultaCpf()
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
     }
+
+    private fun listarConsultaCpf() {
+        val sql = "SELECT * FROM ${DatabaseHelper.TABELA_CONSULTAS};"
+        val cursor = database.readableDatabase
+            .rawQuery(sql, null)
+
+        val indiceConsulta = cursor.getColumnIndex(DatabaseHelper.ID_CONSULTA)
+        val indiceTitulo = cursor.getColumnIndex(DatabaseHelper.TITULO)
+        val indiceDescricao = cursor.getColumnIndex(DatabaseHelper.DESCRICAO)
+
+        while (cursor.moveToNext()) {
+            val idConsulta = cursor.getInt(indiceConsulta)
+            val titulo = cursor.getString(indiceTitulo)
+            val descricao = cursor.getString(indiceDescricao)
+            Log.i("info.db", "id: $idConsulta - $titulo - $descricao")
+        }
+    }
+
 }
