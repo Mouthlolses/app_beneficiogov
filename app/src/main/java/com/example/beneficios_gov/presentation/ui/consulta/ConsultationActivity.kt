@@ -207,6 +207,7 @@ class ConsultationActivity : AppCompatActivity() {
             val descricao = cursor.getString(indiceDescricao)
             Log.i("info.db", "id: $idConsulta - $titulo - $descricao")
         }
+        cursor.close()
     }
 
 
