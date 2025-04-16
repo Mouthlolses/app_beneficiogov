@@ -12,8 +12,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.beneficios_gov.R
+import com.example.beneficios_gov.database.ConsultaDAO
 import com.example.beneficios_gov.database.DatabaseHelper
 import com.example.beneficios_gov.databinding.ActivityConsultationBinding
+import com.example.beneficios_gov.model.Consulta
 import com.google.android.material.textfield.TextInputEditText
 
 class ConsultationActivity : AppCompatActivity() {
@@ -159,55 +161,43 @@ class ConsultationActivity : AppCompatActivity() {
         }
     }
 
-    private fun salvar(titleCpf: String) {
-        val sql = "INSERT INTO consultas VALUES(null, '$titleCpf', 'Descricao..');"
-
-        try {
-            database.writableDatabase.execSQL(sql)
-            Log.i("info.db", "Sucesso ao inserir")
-        } catch (e: Exception) {
-            Log.i("info.db", "Erro ao Inserir, $e")
-        }
+    private fun salvar(userInput: String) {
+        val consultaDAO = ConsultaDAO(this)
+        val consulta = Consulta(
+            -1,
+            userInput,
+            "descricao"
+        )
+        consultaDAO.salvar(consulta)
     }
 
-   /* private fun excluir() {
-        val sql =
-            "DELETE FROM ${DatabaseHelper.TABELA_CONSULTAS}" +
-                    " WHERE ${DatabaseHelper.ID_CONSULTA} = 5"
-        try {
-            database.writableDatabase.execSQL(sql)
-            Log.i("info.db", "Sucesso ao Excluir")
-        } catch (e: Exception) {
-            Log.i("info.db", "Erro ao Excluir, $e")
-        }
-    }*/
-    /*    private fun atualizar(titleCpf: String){
-            val sql = "UPDATE consultas SET titulo = '$titleCpf' WHERE ID_CONSULTA = 1;"
+    private fun excluir() {
+        val consultaDAO = ConsultaDAO(this)
+        consultaDAO.remover(3)
+    }
 
-            try {
-                database.writableDatabase.execSQL(sql)
-                Log.i("info.db", "Sucesso ao Atualizar")
-            } catch (e: Exception) {
-                Log.i("info.db", "Erro ao Atualizar, $e")
-            }
-        }*/
+    private fun atualizar() {
+
+        val transform = findViewById<TextInputEditText>(R.id.editTextInputCpf)
+        val titulo = transform.text.toString().trim()
+        val consultaDAO = ConsultaDAO(this)
+        val consulta = Consulta(
+            -1,
+            titulo,
+            "descricao"
+        )
+        consultaDAO.atualizar(consulta)
+    }
 
     private fun listarConsultaCpf() {
-        val sql = "SELECT * FROM ${DatabaseHelper.TABELA_CONSULTAS};"
-        val cursor = database.readableDatabase
-            .rawQuery(sql, null)
+        val consultaDAO = ConsultaDAO(this)
+        val listaDeConsulta = consultaDAO.listar()
 
-        val indiceConsulta = cursor.getColumnIndex(DatabaseHelper.ID_CONSULTA)
-        val indiceTitulo = cursor.getColumnIndex(DatabaseHelper.TITULO)
-        val indiceDescricao = cursor.getColumnIndex(DatabaseHelper.DESCRICAO)
-
-        while (cursor.moveToNext()) {
-            val idConsulta = cursor.getInt(indiceConsulta)
-            val titulo = cursor.getString(indiceTitulo)
-            val descricao = cursor.getString(indiceDescricao)
-            Log.i("info.db", "id: $idConsulta - $titulo - $descricao")
+        if (listaDeConsulta.isNotEmpty()) {
+            listaDeConsulta.forEach { consulta ->
+                Log.i("inf_db", "${consulta.idConsulta} - ${consulta.titulo}")
+            }
         }
-        cursor.close()
     }
 
 
