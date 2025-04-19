@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -13,24 +12,15 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.beneficios_gov.R
 import com.example.beneficios_gov.database.ConsultaDAO
-import com.example.beneficios_gov.database.DatabaseHelper
 import com.example.beneficios_gov.databinding.ActivityConsultationBinding
 import com.example.beneficios_gov.model.Consulta
+import com.example.beneficios_gov.utils.exibirMensagem
 import com.google.android.material.textfield.TextInputEditText
 
 class ConsultationActivity : AppCompatActivity() {
 
-
     private val binding by lazy {
         ActivityConsultationBinding.inflate(layoutInflater)
-    }
-
-    private val database by lazy {
-        DatabaseHelper(this)
-    }
-
-    private fun exibirMensagem(text: String) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,11 +58,11 @@ class ConsultationActivity : AppCompatActivity() {
                     .setPositiveButton("CONSULTAR") { _, _ ->
                         val userInput = editText.text?.toString()?.trim() ?: ""
                         if (userInput.isNotEmpty()) {
-                            exibirMensagem("O seu CPF é: $userInput")
+                            exibirMensagem(this, "O seu CPF é: $userInput")
                             salvar(userInput)
                             dialogChoice.dismiss()
                         } else {
-                            exibirMensagem("Digite o seu CPF")
+                            exibirMensagem(this, "Digite o seu CPF")
                         }
                     }
                     .setNegativeButton("Fechar", null)
@@ -99,10 +89,10 @@ class ConsultationActivity : AppCompatActivity() {
                     .setPositiveButton("CONSULTAR") { _, _ ->
                         val userInput = editText.text?.toString()?.trim() ?: ""
                         if (userInput.isNotEmpty()) {
-                            exibirMensagem("o Número do seu NIS é: $userInput")
+                            exibirMensagem(this, "o Número do seu NIS é: $userInput")
                             dialogChoice.dismiss()
                         } else {
-                            exibirMensagem("Digite o seu NIS")
+                            exibirMensagem(this, "Digite o seu NIS")
                         }
                     }
                     .setNegativeButton("Fechar", null)
@@ -130,10 +120,10 @@ class ConsultationActivity : AppCompatActivity() {
                     .setPositiveButton("CONSULTAR") { _, _ ->
                         val userInput = editText.text?.toString()?.trim() ?: ""
                         if (userInput.isNotEmpty()) {
-                            exibirMensagem("O Período consultado é: $userInput")
+                            exibirMensagem(this, "O Período consultado é: $userInput")
                             dialogChoice.dismiss()
                         } else {
-                            exibirMensagem("Digite o periodo que deseja consultar")
+                            exibirMensagem(this, "Digite o periodo que deseja consultar")
                         }
                     }
                     .setNegativeButton("Fechar", null)
