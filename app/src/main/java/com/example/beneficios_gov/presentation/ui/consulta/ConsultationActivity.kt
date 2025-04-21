@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -142,6 +143,7 @@ class ConsultationActivity : AppCompatActivity() {
 
         binding.btnHistorico.setOnClickListener {
             listarConsultaCpf()
+            finish()
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -158,7 +160,16 @@ class ConsultationActivity : AppCompatActivity() {
             userInput,
             "descricao"
         )
-        consultaDAO.salvar(consulta)
+        if(consultaDAO.salvar(consulta)){
+            exibirMensagem(
+                this,
+                "Sucesso ao Salvar Consulta"
+            )
+        }else {
+            exibirMensagem(
+                this,
+                "Falha ao Salvar Consulta")
+        }
     }
 
     private fun excluir() {
@@ -185,7 +196,7 @@ class ConsultationActivity : AppCompatActivity() {
 
         if (listaDeConsulta.isNotEmpty()) {
             listaDeConsulta.forEach { consulta ->
-                Log.i("inf_db", "${consulta.idConsulta} - ${consulta.titulo}")
+                Log.i("info.db", "${consulta.idConsulta} - ${consulta.titulo}")
             }
         }
     }

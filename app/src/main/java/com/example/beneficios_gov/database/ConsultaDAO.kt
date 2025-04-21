@@ -1,21 +1,29 @@
 package com.example.beneficios_gov.database
 
+import android.content.ContentValues
 import android.content.Context
 import android.util.Log
 import com.example.beneficios_gov.model.Consulta
 
 class ConsultaDAO(context: Context) : IConsultaDAO {
 
-    val escrita = DatabaseHelper(context).writableDatabase
-    val leitura = DatabaseHelper(context).readableDatabase
+    private val escrita = DatabaseHelper(context).writableDatabase
+    private val leitura = DatabaseHelper(context).readableDatabase
 
     override fun salvar(consulta: Consulta): Boolean {
-        val titulo = consulta.titulo
-        val sql = "INSERT INTO ${DatabaseHelper.TABELA_CONSULTAS} " +
-                "VALUES(null, '$titulo', 'Descricao..');"
+        //val titulo = consulta.titulo
+        val valores = ContentValues()
+        valores.put(DatabaseHelper.TITULO, consulta.titulo)
+        //val sql = "INSERT INTO ${DatabaseHelper.TABELA_CONSULTAS} " +
+        //"VALUES(null, '$titulo', 'Descricao..');"
 
         try {
-            escrita.execSQL(sql)
+            //escrita.execSQL(sql)
+            escrita.insert(
+                DatabaseHelper.TABELA_CONSULTAS,
+                null,
+                valores
+            )
             Log.i("info.db", "Sucesso ao inserir")
         } catch (e: Exception) {
             Log.i("info.db", "Erro ao Inserir, $e")
@@ -75,7 +83,6 @@ class ConsultaDAO(context: Context) : IConsultaDAO {
             listaConsulta.add(consulta)
         }
         return listaConsulta
-        cursor.close()
     }
 
 
