@@ -1,10 +1,10 @@
 package com.example.beneficios_gov.presentation.ui.consulta
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.beneficios_gov.R
 import com.example.beneficios_gov.database.ConsultaDAO
 import com.example.beneficios_gov.databinding.ActivityConsultationBinding
+import com.example.beneficios_gov.extensions.vaiPara
 import com.example.beneficios_gov.model.Consulta
 import com.example.beneficios_gov.utils.exibirMensagem
 import com.google.android.material.textfield.TextInputEditText
@@ -143,7 +144,6 @@ class ConsultationActivity : AppCompatActivity() {
 
         binding.btnHistorico.setOnClickListener {
             listarConsultaCpf()
-            finish()
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -160,15 +160,16 @@ class ConsultationActivity : AppCompatActivity() {
             userInput,
             "descricao"
         )
-        if(consultaDAO.salvar(consulta)){
+        if (consultaDAO.salvar(consulta)) {
             exibirMensagem(
                 this,
                 "Sucesso ao Salvar Consulta"
             )
-        }else {
+        } else {
             exibirMensagem(
                 this,
-                "Falha ao Salvar Consulta")
+                "Falha ao Salvar Consulta"
+            )
         }
     }
 
@@ -191,15 +192,25 @@ class ConsultationActivity : AppCompatActivity() {
     }
 
     private fun listarConsultaCpf() {
+
         val consultaDAO = ConsultaDAO(this)
         val listaDeConsulta = consultaDAO.listar()
 
+        var texto = ""
+        val intent = Intent(this, HistoricoActivity::class.java)
+
         if (listaDeConsulta.isNotEmpty()) {
             listaDeConsulta.forEach { consulta ->
+                texto += "${consulta.idConsulta} - ${consulta.titulo} \n"
                 Log.i("info.db", "${consulta.idConsulta} - ${consulta.titulo}")
             }
+            intent.putExtra("historico_consulta", texto)
+            startActivity(intent)
+        } else {
+            val texto2 = "Nada encontrado"
+            intent.putExtra("historico_consulta_nao_encontrado", texto2)
+            startActivity(intent)
         }
     }
-
 
 }

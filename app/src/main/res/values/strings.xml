@@ -13,4 +13,7 @@
     <string name="consultas_disponiveis">Consultas Disponíveis</string>
     <string name="bolsa_familia">Bolsa Família</string>
     <string name="consultas_anteriores">Histórico</string>
+    <string name="title_activity_historico">HistoricoActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>

@@ -15,6 +15,11 @@
         android:theme="@style/Theme.Beneficios_gov"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ui.consulta.HistoricoActivity"
+            android:exported="false"
+            android:label="@string/title_activity_historico"
+            android:theme="@style/Theme.Beneficios_gov.NoActionBar" />
+        <activity
             android:name=".presentation.ui.history.HistoryActivity"
             android:exported="false" />
         <activity

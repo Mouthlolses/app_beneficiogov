@@ -1,6 +1,5 @@
 package com.example.beneficios_gov.database
 
-import android.content.ContentValues
 import android.content.Context
 import android.util.Log
 import com.example.beneficios_gov.model.Consulta
@@ -11,19 +10,12 @@ class ConsultaDAO(context: Context) : IConsultaDAO {
     private val leitura = DatabaseHelper(context).readableDatabase
 
     override fun salvar(consulta: Consulta): Boolean {
-        //val titulo = consulta.titulo
-        val valores = ContentValues()
-        valores.put(DatabaseHelper.TITULO, consulta.titulo)
-        //val sql = "INSERT INTO ${DatabaseHelper.TABELA_CONSULTAS} " +
-        //"VALUES(null, '$titulo', 'Descricao..');"
+        val titulo = consulta.titulo
+        val sql = "INSERT INTO ${DatabaseHelper.TABELA_CONSULTAS} " +
+        "VALUES(null, '$titulo', 'Descricao..');"
 
         try {
-            //escrita.execSQL(sql)
-            escrita.insert(
-                DatabaseHelper.TABELA_CONSULTAS,
-                null,
-                valores
-            )
+            escrita.execSQL(sql)
             Log.i("info.db", "Sucesso ao inserir")
         } catch (e: Exception) {
             Log.i("info.db", "Erro ao Inserir, $e")
@@ -69,9 +61,9 @@ class ConsultaDAO(context: Context) : IConsultaDAO {
         val sql = "SELECT * FROM ${DatabaseHelper.TABELA_CONSULTAS};"
         val cursor = leitura.rawQuery(sql, null)
 
-        val indiceConsulta = cursor.getColumnIndex(DatabaseHelper.ID_CONSULTA)
-        val indiceTitulo = cursor.getColumnIndex(DatabaseHelper.TITULO)
-        val indiceDescricao = cursor.getColumnIndex(DatabaseHelper.DESCRICAO)
+        val indiceConsulta = cursor.getColumnIndexOrThrow(DatabaseHelper.ID_CONSULTA)
+        val indiceTitulo = cursor.getColumnIndexOrThrow(DatabaseHelper.TITULO)
+        val indiceDescricao = cursor.getColumnIndexOrThrow(DatabaseHelper.DESCRICAO)
 
         while (cursor.moveToNext()) {
             val idConsulta = cursor.getLong(indiceConsulta)
@@ -82,6 +74,8 @@ class ConsultaDAO(context: Context) : IConsultaDAO {
             val consulta = Consulta(idConsulta, titulo, descricao)
             listaConsulta.add(consulta)
         }
+        cursor.close()
+        leitura.close()
         return listaConsulta
     }
 
