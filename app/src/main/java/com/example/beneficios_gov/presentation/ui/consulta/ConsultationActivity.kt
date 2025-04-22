@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import com.example.beneficios_gov.R
 import com.example.beneficios_gov.database.ConsultaDAO
 import com.example.beneficios_gov.databinding.ActivityConsultationBinding
@@ -140,6 +142,16 @@ class ConsultationActivity : AppCompatActivity() {
             }
             dialogChoice.show()
         }
+
+       /* with(binding) {
+            btnHistorico.setOnClickListener {
+                groupMenu.visibility = if (groupMenu.isVisible) {
+                    View.INVISIBLE
+                } else {
+                    View.VISIBLE
+                }
+            }
+        }*/
 
         binding.btnHistorico.setOnClickListener {
             listarConsultaCpf()
