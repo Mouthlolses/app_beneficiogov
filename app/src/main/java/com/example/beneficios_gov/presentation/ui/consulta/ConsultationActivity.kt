@@ -14,7 +14,6 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.beneficios_gov.R
 import com.example.beneficios_gov.database.ConsultaDAO
 import com.example.beneficios_gov.databinding.ActivityConsultationBinding
-import com.example.beneficios_gov.extensions.vaiPara
 import com.example.beneficios_gov.model.Consulta
 import com.example.beneficios_gov.utils.exibirMensagem
 import com.google.android.material.textfield.TextInputEditText
@@ -175,7 +174,7 @@ class ConsultationActivity : AppCompatActivity() {
 
     private fun excluir() {
         val consultaDAO = ConsultaDAO(this)
-        consultaDAO.remover(3)
+        consultaDAO.remover(1)
     }
 
     private fun atualizar() {

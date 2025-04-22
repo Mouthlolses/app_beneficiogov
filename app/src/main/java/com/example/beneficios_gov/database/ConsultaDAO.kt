@@ -12,7 +12,7 @@ class ConsultaDAO(context: Context) : IConsultaDAO {
     override fun salvar(consulta: Consulta): Boolean {
         val titulo = consulta.titulo
         val sql = "INSERT INTO ${DatabaseHelper.TABELA_CONSULTAS} " +
-        "VALUES(null, '$titulo', 'Descricao..');"
+                "VALUES(null, '$titulo', 'Descricao..');"
 
         try {
             escrita.execSQL(sql)
@@ -41,11 +41,17 @@ class ConsultaDAO(context: Context) : IConsultaDAO {
     }
 
     override fun remover(idConsulta: Int): Boolean {
-        val sql =
-            "DELETE FROM ${DatabaseHelper.TABELA_CONSULTAS}" +
-                    " WHERE ${DatabaseHelper.ID_CONSULTA} = $idConsulta;"
+        /* val sql =
+             "DELETE FROM ${DatabaseHelper.TABELA_CONSULTAS}" +
+                     " WHERE ${DatabaseHelper.ID_CONSULTA} = $idConsulta;"
+                     */
+        val args = arrayOf(idConsulta.toString())
         try {
-            escrita.execSQL(sql)
+            escrita.delete(
+                DatabaseHelper.TABELA_CONSULTAS,
+                "${DatabaseHelper.ID_CONSULTA} = ?",
+                args
+            )
             Log.i("info.db", "Sucesso ao Excluir")
         } catch (e: Exception) {
             Log.i("info.db", "Erro ao Excluir, $e")
