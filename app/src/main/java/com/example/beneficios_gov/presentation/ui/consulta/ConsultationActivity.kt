@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -12,13 +11,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isVisible
 import com.example.beneficios_gov.R
+import com.example.beneficios_gov.data.api.cpfApi
 import com.example.beneficios_gov.database.ConsultaDAO
 import com.example.beneficios_gov.databinding.ActivityConsultationBinding
 import com.example.beneficios_gov.model.Consulta
 import com.example.beneficios_gov.utils.exibirMensagem
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ConsultationActivity : AppCompatActivity() {
 
@@ -39,6 +42,9 @@ class ConsultationActivity : AppCompatActivity() {
             val btnCPF = dialogViewChoice.findViewById<Button>(R.id.btnCPF)
             val btnNIS = dialogViewChoice.findViewById<Button>(R.id.btnNIS)
             val btnPeriodo = dialogViewChoice.findViewById<Button>(R.id.btnPeriodo)
+
+            btnNIS.isEnabled = false
+            btnPeriodo.isEnabled = false
 
             val dialogChoice = AlertDialog.Builder(context)
                 .setTitle("Como deseja consultar?")
@@ -63,6 +69,20 @@ class ConsultationActivity : AppCompatActivity() {
                         if (userInput.isNotEmpty()) {
                             exibirMensagem(this, "O seu CPF é: $userInput")
                             salvar(userInput)
+
+                            CoroutineScope(Dispatchers.IO).launch {
+                                try {
+                                    Log.d(
+                                        "info_consulta",
+                                        "Iniciando a consulta CPF com o código: $userInput"
+                                    )
+                                    pesquisarCpf(userInput)
+                                    Log.d("info_consulta", "Consulta CPF realizada com sucesso")
+                                } catch (e: Exception) {
+                                    Log.i("info_consulta", "Erro na consulta ${e.message}")
+                                }
+                            }
+
                             dialogChoice.dismiss()
                         } else {
                             exibirMensagem(this, "Digite o seu CPF")
@@ -143,15 +163,15 @@ class ConsultationActivity : AppCompatActivity() {
             dialogChoice.show()
         }
 
-       /* with(binding) {
-            btnHistorico.setOnClickListener {
-                groupMenu.visibility = if (groupMenu.isVisible) {
-                    View.INVISIBLE
-                } else {
-                    View.VISIBLE
-                }
-            }
-        }*/
+        /* with(binding) {
+             btnHistorico.setOnClickListener {
+                 groupMenu.visibility = if (groupMenu.isVisible) {
+                     View.INVISIBLE
+                 } else {
+                     View.VISIBLE
+                 }
+             }
+         }*/
 
         binding.btnHistorico.setOnClickListener {
             listarConsultaCpf()
@@ -224,4 +244,47 @@ class ConsultationActivity : AppCompatActivity() {
         }
     }
 
+    private suspend fun pesquisarCpf(cpf: String) {
+
+        try {
+            val cpfApi = cpfApi
+            val response = cpfApi.consultarCpf(
+                codigo = cpf,
+                anoMesReferencia = "202401",
+                anoMesCompetencia = "202401",
+                pagina = 1
+            )
+            Log.d("info_consulta", "Código da resposta: ${response.code()}")
+            Log.d("info_consulta", "Body da resposta: ${response.body()}")
+            Log.d("info_consulta", "Erro: ${response.errorBody()?.string()}")
+            if (response.isSuccessful && response.body() != null) {
+                val body = response.body()
+
+                if (body?.isEmpty() == true) {
+                    Log.d("info_consulta", "Nenhum dado encontrado para o CPF: $cpf")
+                } else {
+                    body?.forEach {
+                        Log.d("info_consulta", "Nome: ${it.titularBolsaFamilia.nome}")
+                    }
+                }
+
+                withContext(Dispatchers.Main) {
+                    // Criando um Intent para a nova Activity
+                    val intent = Intent(this@ConsultationActivity, ResultadoActivity::class.java)
+
+                    // Exemplo de como passar dados para a nova activity (pode ser um nome ou uma lista)
+                    val nome =
+                        body?.firstOrNull()?.titularBolsaFamilia?.nome ?: "Nenhum dado encontrado para o CPF pesquisado"
+                    intent.putExtra("nome", nome)
+
+                    // Iniciar a nova Activity
+                    startActivity(intent)
+                }
+            } else {
+                Log.e("info_consulta", "Erro ao obter resposta da API")
+            }
+        } catch (e: Exception) {
+            Log.i("info_consulta", "Consulta não ocorreu: ${e.message}")
+        }
+    }
 }
