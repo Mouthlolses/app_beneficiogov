@@ -19,9 +19,15 @@ class ResultadoActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
         // Recuperar os dados passados pela Intent
-        val nome = intent.getStringExtra("nome") ?: "Nenhum dados encontrado para o CPF pesquisado"
+        val nome = intent.getStringExtra("nome") ?: "Nenhum dado encontrado para o CPF pesquisado"
+        val municipio = intent.getStringExtra("municipio")
+        val data = intent.getStringExtra("data")
+        val valor = intent.getStringExtra("valor")
 
-        binding.textViewResultado.text = nome
+        binding.textViewNomeResultado.text = "Benefíciario: $nome"
+        binding.textViewMunicipio.text = "Municipio: $municipio"
+        binding.textViewDataMesReferencia.text = "Data Referência: $data"
+        binding.textViewValor.text = "Valor Sacado: $valor"
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

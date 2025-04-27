@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.beneficios_gov.R
-import com.example.beneficios_gov.data.api.cpfApi
+import com.example.beneficios_gov.data.api.nisApi
 import com.example.beneficios_gov.database.ConsultaDAO
 import com.example.beneficios_gov.databinding.ActivityConsultationBinding
 import com.example.beneficios_gov.model.Consulta
@@ -39,15 +39,11 @@ class ConsultationActivity : AppCompatActivity() {
             val dialogViewChoice =
                 LayoutInflater.from(context).inflate(R.layout.dialog_choice, null)
 
-            val btnCPF = dialogViewChoice.findViewById<Button>(R.id.btnCPF)
-            val btnNIS = dialogViewChoice.findViewById<Button>(R.id.btnNIS)
-            val btnPeriodo = dialogViewChoice.findViewById<Button>(R.id.btnPeriodo)
+            val btnCPF = dialogViewChoice.findViewById<Button>(R.id.btnNIS)
 
-            btnNIS.isEnabled = false
-            btnPeriodo.isEnabled = false
 
             val dialogChoice = AlertDialog.Builder(context)
-                .setTitle("Como deseja consultar?")
+                .setTitle("Realize sua consulta")
                 .setView(dialogViewChoice)
                 .setNegativeButton("Fechar", null)
                 .create()
@@ -58,17 +54,23 @@ class ConsultationActivity : AppCompatActivity() {
 
             btnCPF.setOnClickListener {
 
-                val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_cpf, null)
+                val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_nis, null)
                 val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputCpf)
+                val editText2 = dialogView.findViewById<TextInputEditText>(R.id.editTextInputData)
 
                 val alertDialog = AlertDialog.Builder(context)
-                    .setTitle("Digite o seu CPF")
+                    .setTitle("Digite o seu NIS e a data a ser consultada.")
                     .setView(dialogView)
                     .setPositiveButton("CONSULTAR") { _, _ ->
                         val userInput = editText.text?.toString()?.trim() ?: ""
-                        if (userInput.isNotEmpty()) {
-                            exibirMensagem(this, "O seu CPF é: $userInput")
-                            salvar(userInput)
+                        val userInputData = editText2.text?.toString()?.trim() ?: ""
+                        if (userInput.isNotEmpty() && userInputData.isNotEmpty()) {
+                            exibirMensagem(
+                                this,
+                                "O seu CPF é: $userInput, Data pesquisada: $userInputData"
+                            )
+
+                            salvar(userInput, userInputData)
 
                             CoroutineScope(Dispatchers.IO).launch {
                                 try {
@@ -76,7 +78,7 @@ class ConsultationActivity : AppCompatActivity() {
                                         "info_consulta",
                                         "Iniciando a consulta CPF com o código: $userInput"
                                     )
-                                    pesquisarCpf(userInput)
+                                    pesquisarCpf(userInput, userInputData)
                                     Log.d("info_consulta", "Consulta CPF realizada com sucesso")
                                 } catch (e: Exception) {
                                     Log.i("info_consulta", "Erro na consulta ${e.message}")
@@ -100,66 +102,6 @@ class ConsultationActivity : AppCompatActivity() {
                 alertDialog.show()
             }
 
-            btnNIS.setOnClickListener {
-
-                val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_nis, null)
-                val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputNis)
-
-
-                val alertDialog = AlertDialog.Builder(context)
-                    .setTitle("Digite o seu NIS")
-                    .setView(dialogView)
-                    .setPositiveButton("CONSULTAR") { _, _ ->
-                        val userInput = editText.text?.toString()?.trim() ?: ""
-                        if (userInput.isNotEmpty()) {
-                            exibirMensagem(this, "o Número do seu NIS é: $userInput")
-                            dialogChoice.dismiss()
-                        } else {
-                            exibirMensagem(this, "Digite o seu NIS")
-                        }
-                    }
-                    .setNegativeButton("Fechar", null)
-                    .create()
-                alertDialog.setOnShowListener {
-                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                        ?.setTextColor(ContextCompat.getColor(context, R.color.verde_esmeralda))
-
-                    alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-                        ?.setTextColor(ContextCompat.getColor(context, R.color.gray))
-                }
-                alertDialog.show()
-            }
-
-            btnPeriodo.setOnClickListener {
-
-                val dialogView =
-                    LayoutInflater.from(context).inflate(R.layout.dialog_periodo, null)
-                val editText =
-                    dialogView.findViewById<TextInputEditText>(R.id.editTextInputPeriodo)
-
-                val alertDialog = AlertDialog.Builder(context)
-                    .setTitle("Digite o período")
-                    .setView(dialogView)
-                    .setPositiveButton("CONSULTAR") { _, _ ->
-                        val userInput = editText.text?.toString()?.trim() ?: ""
-                        if (userInput.isNotEmpty()) {
-                            exibirMensagem(this, "O Período consultado é: $userInput")
-                            dialogChoice.dismiss()
-                        } else {
-                            exibirMensagem(this, "Digite o periodo que deseja consultar")
-                        }
-                    }
-                    .setNegativeButton("Fechar", null)
-                    .create()
-                alertDialog.setOnShowListener {
-                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                        ?.setTextColor(ContextCompat.getColor(context, R.color.verde_esmeralda))
-
-                    alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-                        ?.setTextColor(ContextCompat.getColor(context, R.color.gray))
-                }
-                alertDialog.show()
-            }
             dialogChoice.show()
         }
 
@@ -184,12 +126,12 @@ class ConsultationActivity : AppCompatActivity() {
         }
     }
 
-    private fun salvar(userInput: String) {
+    private fun salvar(userInput: String, userInput2: String) {
         val consultaDAO = ConsultaDAO(this)
         val consulta = Consulta(
             -1,
             userInput,
-            "descricao"
+            userInput2
         )
         if (consultaDAO.salvar(consulta)) {
             exibirMensagem(
@@ -232,8 +174,8 @@ class ConsultationActivity : AppCompatActivity() {
 
         if (listaDeConsulta.isNotEmpty()) {
             listaDeConsulta.forEach { consulta ->
-                texto += "${consulta.idConsulta} - ${consulta.titulo} \n"
-                Log.i("info.db", "${consulta.idConsulta} - ${consulta.titulo}")
+                texto += "Id: ${consulta.idConsulta} - Nome: ${consulta.nome} - Data: ${consulta.data} \n"
+                Log.i("info.db", " Id - ${consulta.idConsulta} - Nome: ${consulta.nome} - Data: ${consulta.data}")
             }
             intent.putExtra("historico_consulta", texto)
             startActivity(intent)
@@ -244,14 +186,13 @@ class ConsultationActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun pesquisarCpf(cpf: String) {
+    private suspend fun pesquisarCpf(nis: String, data: String) {
 
         try {
-            val cpfApi = cpfApi
-            val response = cpfApi.consultarCpf(
-                codigo = cpf,
-                anoMesReferencia = "202401",
-                anoMesCompetencia = "202401",
+            val cpfApi = nisApi
+            val response = cpfApi.consultarNis(
+                nis = nis,
+                anoMesReferencia = data,
                 pagina = 1
             )
             Log.d("info_consulta", "Código da resposta: ${response.code()}")
@@ -261,10 +202,10 @@ class ConsultationActivity : AppCompatActivity() {
                 val body = response.body()
 
                 if (body?.isEmpty() == true) {
-                    Log.d("info_consulta", "Nenhum dado encontrado para o CPF: $cpf")
+                    Log.d("info_consulta", "Nenhum dado encontrado para o CPF: $nis")
                 } else {
                     body?.forEach {
-                        Log.d("info_consulta", "Nome: ${it.titularBolsaFamilia.nome}")
+                        Log.d("info_consulta", "Nome: ${it.beneficiarioNovoBolsaFamilia.nome}")
                     }
                 }
 
@@ -274,8 +215,16 @@ class ConsultationActivity : AppCompatActivity() {
 
                     // Exemplo de como passar dados para a nova activity (pode ser um nome ou uma lista)
                     val nome =
-                        body?.firstOrNull()?.titularBolsaFamilia?.nome ?: "Nenhum dado encontrado para o CPF pesquisado"
+                        body?.firstOrNull()?.beneficiarioNovoBolsaFamilia?.nome
+                            ?: "Nenhum dado encontrado para o CPF pesquisado"
+                    val municipio = body?.firstOrNull()?.municipio?.nomeRegiao
+                    val data = body?.firstOrNull()?.dataMesReferencia
+                    val valor = body?.firstOrNull()?.valorSaque.toString()
+
                     intent.putExtra("nome", nome)
+                    intent.putExtra("municipio", municipio)
+                    intent.putExtra("data", data)
+                    intent.putExtra("valor", valor)
 
                     // Iniciar a nova Activity
                     startActivity(intent)

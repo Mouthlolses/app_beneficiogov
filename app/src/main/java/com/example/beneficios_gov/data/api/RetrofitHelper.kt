@@ -22,4 +22,4 @@ val retrofit = Retrofit.Builder()
     .client(okHttpClient)
     .build()
 
-val cpfApi = retrofit.create(CpfAPI::class.java)
+val nisApi = retrofit.create(CpfAPI::class.java)

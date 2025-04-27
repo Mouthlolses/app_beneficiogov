@@ -10,9 +10,10 @@ class ConsultaDAO(context: Context) : IConsultaDAO {
     private val leitura = DatabaseHelper(context).readableDatabase
 
     override fun salvar(consulta: Consulta): Boolean {
-        val titulo = consulta.titulo
+        val titulo = consulta.nome
+        val data = consulta.data
         val sql = "INSERT INTO ${DatabaseHelper.TABELA_CONSULTAS} " +
-                "VALUES(null, '$titulo', 'Descricao..');"
+                "VALUES(null, '$titulo', $data);"
 
         try {
             escrita.execSQL(sql)
@@ -25,7 +26,7 @@ class ConsultaDAO(context: Context) : IConsultaDAO {
     }
 
     override fun atualizar(consulta: Consulta): Boolean {
-        val titulo = consulta.titulo
+        val titulo = consulta.nome
         val sql = "UPDATE ${DatabaseHelper.TABELA_CONSULTAS}" +
                 "SET ${DatabaseHelper.TITULO} = '$titulo' " +
                 "WHERE ${DatabaseHelper.ID_CONSULTA} = 1;"
@@ -74,10 +75,10 @@ class ConsultaDAO(context: Context) : IConsultaDAO {
         while (cursor.moveToNext()) {
             val idConsulta = cursor.getLong(indiceConsulta)
             val titulo = cursor.getString(indiceTitulo)
-            val descricao = cursor.getString(indiceDescricao)
-            Log.i("info.db", "id: $idConsulta - $titulo - $descricao")
+            val data = cursor.getString(indiceDescricao)
+            Log.i("info.db", "id: $idConsulta - $titulo - $data")
 
-            val consulta = Consulta(idConsulta, titulo, descricao)
+            val consulta = Consulta(idConsulta, titulo, data)
             listaConsulta.add(consulta)
         }
         cursor.close()

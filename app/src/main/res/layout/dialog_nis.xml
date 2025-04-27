@@ -7,10 +7,11 @@
     android:padding="16dp">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/TextInputLayoutCpf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="@string/nisInfo"
+        android:hint="@string/cpfInfo"
         app:hintTextColor="@color/gray"
         app:boxBackgroundMode="filled"
         app:boxCornerRadiusBottomEnd="12dp"
@@ -21,11 +22,39 @@
         app:boxStrokeWidthFocused="0dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextInputNis"
+            android:id="@+id/editTextInputCpf"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:inputType="number"
             android:maxLength="11"
+            android:paddingStart="12dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="1dp"
+            app:boxBackgroundColor="@color/blue_light" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/TextInputLayoutData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/dataInfo"
+        app:hintTextColor="@color/gray"
+        app:boxBackgroundMode="filled"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextInputData"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:inputType="number"
+            android:maxLength="6"
             android:paddingStart="12dp"
             android:paddingTop="16dp"
             android:paddingEnd="12dp"
