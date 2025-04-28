@@ -33,7 +33,6 @@ class ConsultationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
-        toolBarConsult()
 
         binding.cardView.setOnClickListener {
             val context = it.context
@@ -188,10 +187,6 @@ class ConsultationActivity : AppCompatActivity() {
             intent.putExtra("historico_consulta_nao_encontrado", texto2)
             startActivity(intent)
         }
-    }
-
-    private fun toolBarConsult() {
-        binding.includedToolBar.materialToolbar.inflateMenu(R.menu.menu_principal)
     }
 
     private suspend fun pesquisarCpf(nis: String, data: String) {

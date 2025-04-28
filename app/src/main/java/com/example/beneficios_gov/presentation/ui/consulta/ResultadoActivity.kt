@@ -1,6 +1,7 @@
 package com.example.beneficios_gov.presentation.ui.consulta
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -38,6 +39,7 @@ class ResultadoActivity : AppCompatActivity() {
     }
 
     private fun iniciarToolBar() {
+        binding.includedToolBarResultActivity.constraintLogo.visibility = View.GONE
         binding.includedToolBarResultActivity.materialToolbar.title = "Consulta"
         setSupportActionBar(binding.includedToolBarResultActivity.materialToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

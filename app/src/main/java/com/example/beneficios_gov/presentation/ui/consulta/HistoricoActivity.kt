@@ -1,6 +1,7 @@
 package com.example.beneficios_gov.presentation.ui.consulta
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -32,6 +33,7 @@ class HistoricoActivity : AppCompatActivity() {
         }
     }
     private fun inicializarToolBar(){
+        binding.includedToolBarHistoryActivity.constraintLogo.visibility = View.GONE
         binding.includedToolBarHistoryActivity.materialToolbar.title = "Histórico de consultas"
         setSupportActionBar(binding.includedToolBarHistoryActivity.materialToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
