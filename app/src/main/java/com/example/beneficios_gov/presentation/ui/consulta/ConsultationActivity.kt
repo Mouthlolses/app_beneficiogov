@@ -210,7 +210,7 @@ class ConsultationActivity : AppCompatActivity() {
                 val body = response.body()
 
                 if (body?.isEmpty() == true) {
-                    Log.d("info_consulta", "Nenhum dado encontrado para o CPF: $nis")
+                    Log.d("info_consulta", "Nenhum dado encontrado para o NIS: $nis")
                 } else {
                     body?.forEach {
                         Log.d("info_consulta", "Nome: ${it.beneficiarioNovoBolsaFamilia.nome}")
@@ -224,10 +224,10 @@ class ConsultationActivity : AppCompatActivity() {
                     // Exemplo de como passar dados para a nova activity (pode ser um nome ou uma lista)
                     val nome =
                         body?.firstOrNull()?.beneficiarioNovoBolsaFamilia?.nome
-                            ?: "Nenhum dado encontrado para o CPF pesquisado"
+                            ?: "Nenhum dado encontrado para o NIS informado"
                     val municipio = body?.firstOrNull()?.municipio?.nomeRegiao
                     val data = body?.firstOrNull()?.dataMesReferencia
-                    val valor = body?.firstOrNull()?.valorSaque.toString()
+                    val valor = body?.firstOrNull()?.valorSaque?.toString() ?: ""
 
                     intent.putExtra("nome", nome)
                     intent.putExtra("municipio", municipio)

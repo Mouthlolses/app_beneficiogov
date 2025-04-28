@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">beneficios_gov</string>
+    <string name="app_name">CadFácil</string>
     <string name="consulta_cpfandnis">Consulte os registros <b>Bolsa Família</b> por <b>NIS</b>/<b>Período.</b></string>
     <string name="consulte_seu_beneficio">Consulte Seu Beneficio</string>
     <string name="cpf">CPF</string>

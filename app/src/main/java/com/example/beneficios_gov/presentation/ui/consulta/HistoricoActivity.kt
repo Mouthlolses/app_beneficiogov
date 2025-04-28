@@ -1,12 +1,10 @@
 package com.example.beneficios_gov.presentation.ui.consulta
 
 import android.os.Bundle
-import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.transition.Visibility
 import com.example.beneficios_gov.R
 import com.example.beneficios_gov.databinding.ActivityHistoricoBinding
 
