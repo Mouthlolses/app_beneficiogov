@@ -1,10 +1,12 @@
 package com.example.beneficios_gov.presentation.ui.consulta
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.transition.Visibility
 import com.example.beneficios_gov.R
 import com.example.beneficios_gov.databinding.ActivityHistoricoBinding
 
@@ -18,7 +20,7 @@ class HistoricoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
-
+        inicializarToolBar()
         val historico = intent.getStringExtra("historico_consulta")
             ?: intent.getStringExtra("historico_consulta_nao_encontrado")
             ?: "Nenhum dado disponível"
@@ -30,5 +32,10 @@ class HistoricoActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+    private fun inicializarToolBar(){
+        binding.includedToolBarHistoryActivity.materialToolbar.title = "Histórico de consultas"
+        setSupportActionBar(binding.includedToolBarHistoryActivity.materialToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }

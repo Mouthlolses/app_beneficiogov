@@ -18,11 +18,12 @@ class ResultadoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
+        iniciarToolBar()
         // Recuperar os dados passados pela Intent
-        val nome = intent.getStringExtra("nome") ?: "Nenhum dado encontrado para o CPF pesquisado"
-        val municipio = intent.getStringExtra("municipio")
-        val data = intent.getStringExtra("data")
-        val valor = intent.getStringExtra("valor")
+        val nome = intent.getStringExtra("nome") ?: "Nenhum dado encontrado para o NIS informado"
+        val municipio = intent.getStringExtra("municipio") ?: ""
+        val data = intent.getStringExtra("data") ?: ""
+        val valor = intent.getStringExtra("valor") ?: ""
 
         binding.textViewNomeResultado.text = "Benefíciario: $nome"
         binding.textViewMunicipio.text = "Municipio: $municipio"
@@ -34,5 +35,11 @@ class ResultadoActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    private fun iniciarToolBar() {
+        binding.includedToolBarResultActivity.materialToolbar.title = "Consulta"
+        setSupportActionBar(binding.includedToolBarResultActivity.materialToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }

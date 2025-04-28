@@ -33,13 +33,14 @@ class ConsultationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
+        toolBarConsult()
 
         binding.cardView.setOnClickListener {
             val context = it.context
             val dialogViewChoice =
                 LayoutInflater.from(context).inflate(R.layout.dialog_choice, null)
 
-            val btnCPF = dialogViewChoice.findViewById<Button>(R.id.btnNIS)
+            val btnNIS = dialogViewChoice.findViewById<Button>(R.id.btnNIS)
 
 
             val dialogChoice = AlertDialog.Builder(context)
@@ -52,14 +53,14 @@ class ConsultationActivity : AppCompatActivity() {
                     ?.setTextColor(ContextCompat.getColor(context, R.color.gray))
             }
 
-            btnCPF.setOnClickListener {
+            btnNIS.setOnClickListener {
 
                 val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_nis, null)
                 val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputCpf)
                 val editText2 = dialogView.findViewById<TextInputEditText>(R.id.editTextInputData)
 
                 val alertDialog = AlertDialog.Builder(context)
-                    .setTitle("Digite o seu NIS e a data a ser consultada.")
+                    .setTitle("Digite o seu NIS e a Data a ser consultada.")
                     .setView(dialogView)
                     .setPositiveButton("CONSULTAR") { _, _ ->
                         val userInput = editText.text?.toString()?.trim() ?: ""
@@ -67,7 +68,7 @@ class ConsultationActivity : AppCompatActivity() {
                         if (userInput.isNotEmpty() && userInputData.isNotEmpty()) {
                             exibirMensagem(
                                 this,
-                                "O seu CPF é: $userInput, Data pesquisada: $userInputData"
+                                "O seu NIS é: $userInput, Data pesquisada: $userInputData"
                             )
 
                             salvar(userInput, userInputData)
@@ -76,10 +77,10 @@ class ConsultationActivity : AppCompatActivity() {
                                 try {
                                     Log.d(
                                         "info_consulta",
-                                        "Iniciando a consulta CPF com o código: $userInput"
+                                        "Iniciando a consulta NIS com o código: $userInput"
                                     )
                                     pesquisarCpf(userInput, userInputData)
-                                    Log.d("info_consulta", "Consulta CPF realizada com sucesso")
+                                    Log.d("info_consulta", "Consulta NIS realizada com sucesso")
                                 } catch (e: Exception) {
                                     Log.i("info_consulta", "Erro na consulta ${e.message}")
                                 }
@@ -87,7 +88,7 @@ class ConsultationActivity : AppCompatActivity() {
 
                             dialogChoice.dismiss()
                         } else {
-                            exibirMensagem(this, "Digite o seu CPF")
+                            exibirMensagem(this, "Digite o seu NIS")
                         }
                     }
                     .setNegativeButton("Fechar", null)
@@ -175,7 +176,10 @@ class ConsultationActivity : AppCompatActivity() {
         if (listaDeConsulta.isNotEmpty()) {
             listaDeConsulta.forEach { consulta ->
                 texto += "Id: ${consulta.idConsulta} - Nome: ${consulta.nome} - Data: ${consulta.data} \n"
-                Log.i("info.db", " Id - ${consulta.idConsulta} - Nome: ${consulta.nome} - Data: ${consulta.data}")
+                Log.i(
+                    "info.db",
+                    " Id - ${consulta.idConsulta} - Nome: ${consulta.nome} - Data: ${consulta.data}"
+                )
             }
             intent.putExtra("historico_consulta", texto)
             startActivity(intent)
@@ -184,6 +188,10 @@ class ConsultationActivity : AppCompatActivity() {
             intent.putExtra("historico_consulta_nao_encontrado", texto2)
             startActivity(intent)
         }
+    }
+
+    private fun toolBarConsult() {
+        binding.includedToolBar.materialToolbar.inflateMenu(R.menu.menu_principal)
     }
 
     private suspend fun pesquisarCpf(nis: String, data: String) {

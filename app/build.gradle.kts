@@ -1,4 +1,5 @@
 import com.android.build.api.dsl.DefaultConfig
+import org.jetbrains.kotlin.com.intellij.openapi.util.JDOMUtil.load
 
 plugins {
     alias(libs.plugins.android.application)

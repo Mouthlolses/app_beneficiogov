@@ -8,6 +8,16 @@
     android:background="@drawable/gradient3_background"
     tools:context=".presentation.ui.consulta.ConsultationActivity">
 
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/materialDivider"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/includedToolBar" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -15,34 +25,26 @@
         android:fontFamily="@font/roboto_bold"
         android:text="@string/consultas_disponiveis"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintBottom_toTopOf="@id/textView2"
+        app:layout_constraintTop_toBottomOf="@id/materialDivider" />
 
     <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/materialDivider"
+        android:id="@+id/materialDivider2"
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="@id/guideline"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <com.google.android.material.card.MaterialCardView
 
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="130dp"
+        android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:backgroundTint="@color/white"
@@ -51,7 +53,7 @@
         app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline">
+        app:layout_constraintTop_toBottomOf="@+id/materialDivider2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -100,52 +102,13 @@
         app:layout_constraintHorizontal_bias="0.99"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btnHistCpf3"
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/includedToolBar"
+        layout="@layout/material_toolbar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/white"
-        android:clickable="true"
-        android:text="@string/cpf"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/btnHistorico"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btnHistNis2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/white"
-        android:clickable="true"
-        android:text="@string/nis"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/btnHistCpf3"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btnHistPeríodo2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/white"
-        android:clickable="true"
-        android:text="@string/periodo"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/btnHistNis2"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/groupMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:constraint_referenced_ids="btnHistCpf3,btnHistNis2,btnHistPeríodo2"
-        tools:visibility="invisible" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

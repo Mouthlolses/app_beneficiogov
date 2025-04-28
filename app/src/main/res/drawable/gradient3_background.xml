@@ -7,6 +7,6 @@
         android:endColor="#061B15"
         android:angle="270"/> <!-- 270 = vertical de cima para baixo -->
 
-    <corners android:radius="30dp"/>
+
 
 </shape>
