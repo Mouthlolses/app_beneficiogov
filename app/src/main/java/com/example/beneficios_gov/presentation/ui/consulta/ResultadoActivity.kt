@@ -7,12 +7,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.beneficios_gov.R
+import com.example.beneficios_gov.data.dao.ConsultaNisDao
+import com.example.beneficios_gov.database.AppDatabase
 import com.example.beneficios_gov.databinding.ActivityResultadoBinding
 
 class ResultadoActivity : AppCompatActivity() {
 
     private val binding by lazy {
         ActivityResultadoBinding.inflate(layoutInflater)
+    }
+
+    private val consultaNisDao : ConsultaNisDao by lazy {
+        val db = AppDatabase.instancia(this)
+        db.consultaNisItem()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,10 +33,10 @@ class ResultadoActivity : AppCompatActivity() {
         val data = intent.getStringExtra("data") ?: ""
         val valor = intent.getStringExtra("valor") ?: ""
 
-        binding.textViewNomeResultado.text = "Benefíciario: $nome"
-        binding.textViewMunicipio.text = "Municipio: $municipio"
-        binding.textViewDataMesReferencia.text = "Data Referência: $data"
-        binding.textViewValor.text = "Valor Sacado: $valor"
+        binding.meuCard.jogoItemNomeDoOrganizador.text = "Benefíciario: $nome"
+        binding.meuCard.jogoItemNumeroParaContato.text = "Municipio: $municipio"
+        binding.meuCard.jogoItemDiaDoJogo.text = "Data Referência: $data"
+        binding.meuCard.jogoItemValorParaPagar.text = "Valor Sacado: $valor"
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

@@ -1,6 +1,6 @@
 package com.example.beneficios_gov.data.interfaces
 
-import com.example.beneficios_gov.data.repository.consultaNisItem
+import com.example.beneficios_gov.data.repository.ConsultaNisItem
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -12,5 +12,5 @@ interface CpfAPI {
         @Query("nis") nis: String,
         @Query("anoMesReferencia") anoMesReferencia: String,
         @Query("pagina") pagina: Int
-    ): Response<List<consultaNisItem>>
+    ): Response<List<ConsultaNisItem>>
 }

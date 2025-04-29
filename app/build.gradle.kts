@@ -1,9 +1,8 @@
-import com.android.build.api.dsl.DefaultConfig
-import org.jetbrains.kotlin.com.intellij.openapi.util.JDOMUtil.load
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    id("com.google.devtools.ksp")
 }
 
 val apiKeyTrans2: String by project
@@ -47,6 +46,12 @@ android {
 
 dependencies {
 
+    ksp(libs.androidx.room.compiler.v252)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.ui.android)
+    implementation(libs.kotlin.parcelize.runtime)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.androidx.lifecycle.runtime.ktx)

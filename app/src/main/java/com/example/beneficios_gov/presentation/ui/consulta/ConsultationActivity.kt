@@ -13,6 +13,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.beneficios_gov.R
 import com.example.beneficios_gov.data.api.nisApi
+import com.example.beneficios_gov.data.dao.ConsultaNisDao
+import com.example.beneficios_gov.database.AppDatabase
 import com.example.beneficios_gov.database.ConsultaDAO
 import com.example.beneficios_gov.databinding.ActivityConsultationBinding
 import com.example.beneficios_gov.model.Consulta
@@ -70,8 +72,6 @@ class ConsultationActivity : AppCompatActivity() {
                                 "O seu NIS é: $userInput, Data pesquisada: $userInputData"
                             )
 
-                            salvar(userInput, userInputData)
-
                             CoroutineScope(Dispatchers.IO).launch {
                                 try {
                                     Log.d(
@@ -104,7 +104,6 @@ class ConsultationActivity : AppCompatActivity() {
 
             dialogChoice.show()
         }
-
         /* with(binding) {
              btnHistorico.setOnClickListener {
                  groupMenu.visibility = if (groupMenu.isVisible) {
@@ -114,7 +113,6 @@ class ConsultationActivity : AppCompatActivity() {
                  }
              }
          }*/
-
         binding.btnHistorico.setOnClickListener {
             listarConsultaCpf()
         }
@@ -126,43 +124,6 @@ class ConsultationActivity : AppCompatActivity() {
         }
     }
 
-    private fun salvar(userInput: String, userInput2: String) {
-        val consultaDAO = ConsultaDAO(this)
-        val consulta = Consulta(
-            -1,
-            userInput,
-            userInput2
-        )
-        if (consultaDAO.salvar(consulta)) {
-            exibirMensagem(
-                this,
-                "Sucesso ao Salvar Consulta"
-            )
-        } else {
-            exibirMensagem(
-                this,
-                "Falha ao Salvar Consulta"
-            )
-        }
-    }
-
-    private fun excluir() {
-        val consultaDAO = ConsultaDAO(this)
-        consultaDAO.remover(1)
-    }
-
-    private fun atualizar() {
-
-        val transform = findViewById<TextInputEditText>(R.id.editTextInputCpf)
-        val titulo = transform.text.toString().trim()
-        val consultaDAO = ConsultaDAO(this)
-        val consulta = Consulta(
-            -1,
-            titulo,
-            "descricao"
-        )
-        consultaDAO.atualizar(consulta)
-    }
 
     private fun listarConsultaCpf() {
 
