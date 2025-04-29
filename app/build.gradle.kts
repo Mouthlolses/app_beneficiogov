@@ -5,8 +5,6 @@ plugins {
     id("com.google.devtools.ksp")
 }
 
-val apiKeyTrans2: String by project
-
 android {
     namespace = "com.example.beneficios_gov"
     compileSdk = 35
@@ -17,7 +15,6 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-        buildConfigField("String", "API_KEY_TRANS2", "\"$apiKeyTrans2\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -40,7 +37,6 @@ android {
 
     buildFeatures {
         viewBinding = true
-        buildConfig = true
     }
 }
 

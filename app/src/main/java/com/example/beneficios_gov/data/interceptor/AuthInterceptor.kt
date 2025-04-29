@@ -1,15 +1,13 @@
 package com.example.beneficios_gov.data.interceptor
 
-import com.example.beneficios_gov.BuildConfig
-import okhttp3.Interceptor
-import okhttp3.Response
 
 /*
-class AuthInterceptor : Interceptor {
+class AuthInterceptor(private val context: Context) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
+        val token = SecurePrefsManager.getToken(context) ?: ""
         val request = chain.request()
             .newBuilder()
-            .addHeader("chave-api-dados", BuildConfig.API_KEY_TRANS2)// API key via header
+            .addHeader("chave-api-dados", token)// API key via header
             .build()
         return chain.proceed(request)
     }
