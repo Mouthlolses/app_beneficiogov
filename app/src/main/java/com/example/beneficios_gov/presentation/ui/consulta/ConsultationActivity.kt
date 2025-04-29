@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -64,13 +65,12 @@ class ConsultationActivity : AppCompatActivity() {
                         val userInput = editText.text?.toString()?.trim() ?: ""
                         val userInputData = editText2.text?.toString()?.trim() ?: ""
                         if (userInput.isNotEmpty() && userInputData.isNotEmpty()) {
-                            exibirMensagem(
-                                this,
-                                "O seu NIS é: $userInput, Data pesquisada: $userInputData"
-                            )
 
                             CoroutineScope(Dispatchers.IO).launch {
                                 try {
+                                    withContext(Dispatchers.Main) {
+                                        binding.progressBar.visibility = View.VISIBLE
+                                    }
                                     Log.d(
                                         "info_consulta",
                                         "Iniciando a consulta NIS com o código: $userInput"
@@ -79,9 +79,12 @@ class ConsultationActivity : AppCompatActivity() {
                                     Log.d("info_consulta", "Consulta NIS realizada com sucesso")
                                 } catch (e: Exception) {
                                     Log.i("info_consulta", "Erro na consulta ${e.message}")
+                                } finally {
+                                    withContext(Dispatchers.Main) {
+                                        binding.progressBar.visibility = View.GONE
+                                    }
                                 }
                             }
-
                             dialogChoice.dismiss()
                         } else {
                             exibirMensagem(this, "Digite o seu NIS")
@@ -161,7 +164,7 @@ class ConsultationActivity : AppCompatActivity() {
                     intent.putExtra("id", id)
                     intent.putExtra("nome", nome)
                     intent.putExtra("municipio", municipio)
-                    intent.putExtra("data", "Data Referência: $data")
+                    intent.putExtra("data", data)
                     intent.putExtra("valor", valor)
 
                     // Iniciar a nova Activity

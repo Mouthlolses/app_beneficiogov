@@ -41,7 +41,7 @@ class ResultadoActivity : AppCompatActivity() {
         val valor = intent.getIntExtra("valor", 0)
 
         binding.meuCard.jogoItemNomeDoOrganizador.text = "Benefíciario: $nome"
-        binding.meuCard.jogoItemNumeroParaContato.text = "Municipio: $municipio"
+        binding.meuCard.jogoItemNumeroParaContato.text = "Região: $municipio"
         binding.meuCard.jogoItemDiaDoJogo.text = "Data Referência: $data"
         binding.meuCard.jogoItemValorParaPagar.text = "Valor Sacado: $valor"
 
@@ -71,7 +71,7 @@ class ResultadoActivity : AppCompatActivity() {
 
         val uf = Uf("", "")
         val beneficiario = BeneficiarioNovoBolsaFamilia("", "","Benefíciario: $nome")
-        val municipioReal = Municipio("", "", "","Municipio: $municipio", "", uf)
+        val municipioReal = Municipio("", "", "","Região: $municipio", "", uf)
 
         return ConsultaNisItem(
             id1 = consultaId,

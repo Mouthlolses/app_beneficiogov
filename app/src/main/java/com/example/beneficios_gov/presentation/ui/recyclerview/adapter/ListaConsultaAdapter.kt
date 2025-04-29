@@ -33,7 +33,7 @@ class ListaConsultaAdapter(
             val nomeConsultado = binding.jogoItemNomeDoOrganizador
             nomeConsultado.text = consultas.beneficiarioNovoBolsaFamilia.nome
             val data = binding.jogoItemNumeroParaContato
-            data.text = consultas.dataMesReferencia
+            data.text = "Data Referência: ${consultas.dataMesReferencia}"
             val municipio = binding.jogoItemDiaDoJogo
             municipio.text  = consultas.municipio.nomeRegiao
             val valor = binding.jogoItemValorParaPagar
