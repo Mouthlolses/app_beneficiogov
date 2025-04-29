@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 
+/*
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(
     context, "beneficios.db", null, 1
 ) {
@@ -36,4 +37,4 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         Log.i("info.db", "Executou onUpgrade")
         TODO("Not yet implemented")
     }
-}
+}*/

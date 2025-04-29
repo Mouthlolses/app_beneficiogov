@@ -2,8 +2,8 @@ package com.example.beneficios_gov.database
 
 import android.content.Context
 import android.util.Log
-import com.example.beneficios_gov.model.Consulta
 
+/*
 class ConsultaDAO(context: Context) : IConsultaDAO {
 
     private val escrita = DatabaseHelper(context).writableDatabase
@@ -42,10 +42,12 @@ class ConsultaDAO(context: Context) : IConsultaDAO {
     }
 
     override fun remover(idConsulta: Int): Boolean {
-        /* val sql =
+        */
+/* val sql =
              "DELETE FROM ${DatabaseHelper.TABELA_CONSULTAS}" +
                      " WHERE ${DatabaseHelper.ID_CONSULTA} = $idConsulta;"
-                     */
+                     *//*
+
         val args = arrayOf(idConsulta.toString())
         try {
             escrita.delete(
@@ -87,4 +89,4 @@ class ConsultaDAO(context: Context) : IConsultaDAO {
     }
 
 
-}
+}*/

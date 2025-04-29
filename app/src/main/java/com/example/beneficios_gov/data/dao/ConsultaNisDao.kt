@@ -13,5 +13,5 @@ interface ConsultaNisDao {
     fun salva(vararg consulta: ConsultaNisItem)
 
     @Query("SELECT * FROM ConsultaNisItem")
-    fun buscaTodos(): List<ConsultaNisItem>
+    fun buscatodos(): List<ConsultaNisItem>
 }

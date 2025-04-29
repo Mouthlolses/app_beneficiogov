@@ -13,11 +13,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.beneficios_gov.R
 import com.example.beneficios_gov.data.api.nisApi
-import com.example.beneficios_gov.data.dao.ConsultaNisDao
-import com.example.beneficios_gov.database.AppDatabase
-import com.example.beneficios_gov.database.ConsultaDAO
 import com.example.beneficios_gov.databinding.ActivityConsultationBinding
-import com.example.beneficios_gov.model.Consulta
+import com.example.beneficios_gov.extensions.vaiPara
 import com.example.beneficios_gov.utils.exibirMensagem
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.CoroutineScope
@@ -114,7 +111,7 @@ class ConsultationActivity : AppCompatActivity() {
              }
          }*/
         binding.btnHistorico.setOnClickListener {
-            listarConsultaCpf()
+            vaiPara(HistoricoActivity::class.java)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -124,31 +121,6 @@ class ConsultationActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun listarConsultaCpf() {
-
-        val consultaDAO = ConsultaDAO(this)
-        val listaDeConsulta = consultaDAO.listar()
-
-        var texto = ""
-        val intent = Intent(this, HistoricoActivity::class.java)
-
-        if (listaDeConsulta.isNotEmpty()) {
-            listaDeConsulta.forEach { consulta ->
-                texto += "Id: ${consulta.idConsulta} - Nome: ${consulta.nome} - Data: ${consulta.data} \n"
-                Log.i(
-                    "info.db",
-                    " Id - ${consulta.idConsulta} - Nome: ${consulta.nome} - Data: ${consulta.data}"
-                )
-            }
-            intent.putExtra("historico_consulta", texto)
-            startActivity(intent)
-        } else {
-            val texto2 = "Nada encontrado"
-            intent.putExtra("historico_consulta_nao_encontrado", texto2)
-            startActivity(intent)
-        }
-    }
 
     private suspend fun pesquisarCpf(nis: String, data: String) {
 
@@ -178,16 +150,18 @@ class ConsultationActivity : AppCompatActivity() {
                     val intent = Intent(this@ConsultationActivity, ResultadoActivity::class.java)
 
                     // Exemplo de como passar dados para a nova activity (pode ser um nome ou uma lista)
+                    val id = body?.firstOrNull()?.idAPi?.toInt()
                     val nome =
                         body?.firstOrNull()?.beneficiarioNovoBolsaFamilia?.nome
                             ?: "Nenhum dado encontrado para o NIS informado"
                     val municipio = body?.firstOrNull()?.municipio?.nomeRegiao
                     val data = body?.firstOrNull()?.dataMesReferencia
-                    val valor = body?.firstOrNull()?.valorSaque?.toString() ?: ""
+                    val valor = body?.firstOrNull()?.valorSaque
 
+                    intent.putExtra("id", id)
                     intent.putExtra("nome", nome)
                     intent.putExtra("municipio", municipio)
-                    intent.putExtra("data", data)
+                    intent.putExtra("data", "Data Referência: $data")
                     intent.putExtra("valor", valor)
 
                     // Iniciar a nova Activity

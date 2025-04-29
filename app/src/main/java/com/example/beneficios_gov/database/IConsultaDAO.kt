@@ -1,7 +1,6 @@
 package com.example.beneficios_gov.database
 
-import com.example.beneficios_gov.model.Consulta
-
+/*
 interface IConsultaDAO {
 
     fun salvar(consulta: Consulta): Boolean
@@ -9,4 +8,4 @@ interface IConsultaDAO {
     fun remover(idConsulta: Int): Boolean
     fun listar(): List<Consulta>
 
-}
+}*/

@@ -12,7 +12,6 @@ import com.example.beneficios_gov.data.repository.ConsultaNisItem
 @TypeConverters()
 abstract class AppDatabase : RoomDatabase() {
     abstract fun consultaNisItem(): ConsultaNisDao
-
     companion object {
         fun instancia(context: Context): AppDatabase {
             return Room.databaseBuilder(
