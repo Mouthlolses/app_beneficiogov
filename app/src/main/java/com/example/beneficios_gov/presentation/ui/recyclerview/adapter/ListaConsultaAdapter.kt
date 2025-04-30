@@ -9,7 +9,9 @@ import com.example.beneficios_gov.databinding.CardConsultaBinding
 
 class ListaConsultaAdapter(
     private val context: Context,
-    consultas: List<ConsultaNisItem> = emptyList()
+    consultas: List<ConsultaNisItem> = emptyList(),
+
+    var quandoClicarNoItem: (minhaConsulta: ConsultaNisItem) -> Unit = {}
 ) : RecyclerView.Adapter<ListaConsultaAdapter.ViewHolder>() {
 
     private val consulta = consultas.toMutableList()
@@ -19,15 +21,15 @@ class ListaConsultaAdapter(
 
         private lateinit var consultas: ConsultaNisItem
 
-        /*init {
+        init {
             // implementação do listener do adapter
             itemView.setOnClickListener {
                 // verificação da existência de valores em property lateinit
-                if (::jogos.isInitialized) {
-                    quandoClicaNoItem(jogos)
+                if (::consultas.isInitialized) {
+                    quandoClicarNoItem(consultas)
                 }
             }
-        }*/
+        }
 
         fun vincula(consulta: ConsultaNisItem) {
             this.consultas = consulta
@@ -39,7 +41,6 @@ class ListaConsultaAdapter(
             municipio.text = consultas.municipio.nomeRegiao
             val valor = binding.valorSacado
             valor.text = "Valor Sacado: ${consultas.valorSaque}"
-
         }
     }
 

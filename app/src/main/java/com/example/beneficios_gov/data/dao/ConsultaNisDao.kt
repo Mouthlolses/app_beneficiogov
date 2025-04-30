@@ -1,6 +1,7 @@
 package com.example.beneficios_gov.data.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -14,4 +15,10 @@ interface ConsultaNisDao {
 
     @Query("SELECT * FROM ConsultaNisItem")
     fun buscatodos(): List<ConsultaNisItem>
+
+    @Delete()
+    fun remove(vararg consulta: ConsultaNisItem)
+
+    @Query("SELECT * FROM ConsultaNisItem WHERE id1 = :id")
+    fun buscaPorId(id: Int?) : ConsultaNisItem?
 }

@@ -1,5 +1,6 @@
 package com.example.beneficios_gov.presentation.ui.consulta
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -10,6 +11,7 @@ import com.example.beneficios_gov.R
 import com.example.beneficios_gov.data.dao.ConsultaNisDao
 import com.example.beneficios_gov.database.AppDatabase
 import com.example.beneficios_gov.databinding.ActivityHistoricoBinding
+import com.example.beneficios_gov.presentation.ui.CHAVE_CONSULTA_ID
 import com.example.beneficios_gov.presentation.ui.recyclerview.adapter.ListaConsultaAdapter
 
 class HistoricoActivity : AppCompatActivity() {
@@ -40,9 +42,27 @@ class HistoricoActivity : AppCompatActivity() {
         }
     }
 
-    private fun configuraRecyclerView(){
+    override fun onResume() {
+        super.onResume()
+        val db = AppDatabase.instancia(this)
+        val consultasDao = db.consultaNisItem()
+        adapter.atualiza(consultasDao.buscatodos())
+    }
+
+    private fun configuraRecyclerView() {
         val recyclerView = binding.recyclerviewconsultas
         recyclerView.adapter = adapter
+
+        adapter.quandoClicarNoItem = {
+            val intent = Intent(
+                this,
+                DetalhesConsultaActivity::class.java
+            ).apply {
+                putExtra(CHAVE_CONSULTA_ID, it.id1)
+            }
+            startActivity(intent)
+        }
+
     }
 
     private fun inicializarToolBar() {

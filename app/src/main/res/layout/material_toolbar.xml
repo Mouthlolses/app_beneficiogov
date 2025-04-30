@@ -11,12 +11,13 @@
         android:layout_height="wrap_content"
         android:background="#EEEEEE"
         android:minHeight="?attr/actionBarSize"
+        android:pointerIcon="help"
         android:theme="?attr/actionBarTheme"
         app:collapseIcon="?attr/actionModeCloseDrawable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIconTint="#83101010" >
+        app:navigationIconTint="#83101010">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLogo"
