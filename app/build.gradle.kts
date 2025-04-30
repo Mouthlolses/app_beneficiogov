@@ -1,9 +1,18 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     id("com.google.devtools.ksp")
 }
+
+val localProperties = rootProject.file("local.properties")
+val apiToken = if (localProperties.exists()) {
+    val properties = Properties()
+    properties.load(localProperties.inputStream())
+    properties["API_TOKEN"]?.toString() ?: ""
+} else ""
 
 android {
     namespace = "com.example.beneficios_gov"
@@ -15,6 +24,7 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
+        buildConfigField("String", "API_TOKEN", "\"$apiToken\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -37,6 +47,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
