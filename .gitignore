@@ -13,4 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
-config
+app/src/main/java/com/example/beneficios_gov/config/
