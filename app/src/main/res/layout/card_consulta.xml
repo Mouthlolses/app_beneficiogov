@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/jogo_item_nomeDoOrganizador"
+            android:id="@+id/nomeBeneficiario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -29,7 +29,7 @@
             tools:text="@tools:sample/lorem/random" />
 
         <TextView
-            android:id="@+id/jogo_item_numeroParaContato"
+            android:id="@+id/dataConsulta"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -37,13 +37,13 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@id/jogo_item_nomeDoOrganizador"
-            app:layout_constraintStart_toStartOf="@id/jogo_item_nomeDoOrganizador"
-            app:layout_constraintTop_toBottomOf="@id/jogo_item_nomeDoOrganizador"
+            app:layout_constraintEnd_toEndOf="@id/nomeBeneficiario"
+            app:layout_constraintStart_toStartOf="@id/nomeBeneficiario"
+            app:layout_constraintTop_toBottomOf="@id/nomeBeneficiario"
             tools:text="@tools:sample/lorem/random" />
 
         <TextView
-            android:id="@+id/jogo_item_diaDoJogo"
+            android:id="@+id/municipio"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -51,13 +51,13 @@
             android:textSize="16sp"
             android:layout_marginTop="8dp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/jogo_item_nomeDoOrganizador"
-            app:layout_constraintStart_toStartOf="@id/jogo_item_nomeDoOrganizador"
-            app:layout_constraintTop_toBottomOf="@id/jogo_item_numeroParaContato"
+            app:layout_constraintEnd_toEndOf="@id/nomeBeneficiario"
+            app:layout_constraintStart_toStartOf="@id/nomeBeneficiario"
+            app:layout_constraintTop_toBottomOf="@id/dataConsulta"
             tools:text="@tools:sample/lorem/random" />
 
         <TextView
-            android:id="@+id/jogo_item_valorParaPagar"
+            android:id="@+id/valorSacado"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -66,9 +66,9 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/jogo_item_nomeDoOrganizador"
-            app:layout_constraintStart_toStartOf="@id/jogo_item_nomeDoOrganizador"
-            app:layout_constraintTop_toBottomOf="@id/jogo_item_diaDoJogo"
+            app:layout_constraintEnd_toEndOf="@id/nomeBeneficiario"
+            app:layout_constraintStart_toStartOf="@id/nomeBeneficiario"
+            app:layout_constraintTop_toBottomOf="@id/municipio"
             tools:text="R$ 19,00" />
 
 

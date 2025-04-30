@@ -14,9 +14,10 @@ class ListaConsultaAdapter(
 
     private val consulta = consultas.toMutableList()
 
-    inner class ViewHolder(private val binding: CardConsultaBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: CardConsultaBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        private lateinit var consultas : ConsultaNisItem
+        private lateinit var consultas: ConsultaNisItem
 
         /*init {
             // implementação do listener do adapter
@@ -28,15 +29,15 @@ class ListaConsultaAdapter(
             }
         }*/
 
-        fun vincula(consulta: ConsultaNisItem){
+        fun vincula(consulta: ConsultaNisItem) {
             this.consultas = consulta
-            val nomeConsultado = binding.jogoItemNomeDoOrganizador
+            val nomeConsultado = binding.nomeBeneficiario
             nomeConsultado.text = consultas.beneficiarioNovoBolsaFamilia.nome
-            val data = binding.jogoItemNumeroParaContato
+            val data = binding.dataConsulta
             data.text = "Data Referência: ${consultas.dataMesReferencia}"
-            val municipio = binding.jogoItemDiaDoJogo
-            municipio.text  = consultas.municipio.nomeRegiao
-            val valor = binding.jogoItemValorParaPagar
+            val municipio = binding.municipio
+            municipio.text = consultas.municipio.nomeRegiao
+            val valor = binding.valorSacado
             valor.text = "Valor Sacado: ${consultas.valorSaque}"
 
         }
@@ -59,9 +60,9 @@ class ListaConsultaAdapter(
         holder.vincula(item)
     }
 
-    override fun getItemCount(): Int  = consulta.size
+    override fun getItemCount(): Int = consulta.size
 
-    fun atualiza(novasConsultas: List<ConsultaNisItem>){
+    fun atualiza(novasConsultas: List<ConsultaNisItem>) {
         consulta.clear()
         consulta.addAll(novasConsultas)
         notifyDataSetChanged()

@@ -40,10 +40,10 @@ class ResultadoActivity : AppCompatActivity() {
         val data = intent.getStringExtra("data") ?: ""
         val valor = intent.getIntExtra("valor", 0)
 
-        binding.meuCard.jogoItemNomeDoOrganizador.text = "Benefíciario: $nome"
-        binding.meuCard.jogoItemNumeroParaContato.text = "Região: $municipio"
-        binding.meuCard.jogoItemDiaDoJogo.text = "Data Referência: $data"
-        binding.meuCard.jogoItemValorParaPagar.text = "Valor Sacado: $valor"
+        binding.meuCard.nomeBeneficiario.text = "Benefíciario: $nome"
+        binding.meuCard.municipio.text = "Região: $municipio"
+        binding.meuCard.dataConsulta.text = "Data Referência: $data"
+        binding.meuCard.valorSacado.text = "Valor Sacado: $valor"
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -70,8 +70,8 @@ class ResultadoActivity : AppCompatActivity() {
         val valor = intent.getIntExtra("valor", 0)
 
         val uf = Uf("", "")
-        val beneficiario = BeneficiarioNovoBolsaFamilia("", "","Benefíciario: $nome")
-        val municipioReal = Municipio("", "", "","Região: $municipio", "", uf)
+        val beneficiario = BeneficiarioNovoBolsaFamilia("", "", "Benefíciario: $nome")
+        val municipioReal = Municipio("", "", "", "Região: $municipio", "", uf)
 
         return ConsultaNisItem(
             id1 = consultaId,
