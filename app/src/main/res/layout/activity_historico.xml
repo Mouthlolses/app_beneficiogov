@@ -7,13 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".presentation.ui.consulta.HistoricoActivity">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.08" />
-
     <include
         android:id="@+id/includedToolBarHistoryActivity"
         layout="@layout/material_toolbar"
@@ -27,11 +20,12 @@
         android:id="@+id/recyclerviewconsultas"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_margin="8dp"
         android:importantForAccessibility="no"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@id/includedToolBarHistoryActivity"
         tools:listitem="@layout/card_consulta"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

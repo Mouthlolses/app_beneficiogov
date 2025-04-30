@@ -65,7 +65,6 @@ class ConsultationActivity : AppCompatActivity() {
                         val userInput = editText.text?.toString()?.trim() ?: ""
                         val userInputData = editText2.text?.toString()?.trim() ?: ""
                         if (userInput.isNotEmpty() && userInputData.isNotEmpty()) {
-
                             CoroutineScope(Dispatchers.IO).launch {
                                 try {
                                     withContext(Dispatchers.Main) {
@@ -123,7 +122,6 @@ class ConsultationActivity : AppCompatActivity() {
             insets
         }
     }
-
 
     private suspend fun pesquisarCpf(nis: String, data: String) {
 
