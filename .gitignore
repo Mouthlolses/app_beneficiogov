@@ -1,7 +1,6 @@
 *.iml
 .gradle
 /local.properties
-/app/src/main/java/com/example/beneficios_gov/config/
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
