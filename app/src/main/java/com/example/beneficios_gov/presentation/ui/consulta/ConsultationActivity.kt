@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.beneficios_gov.R
 import com.example.beneficios_gov.data.api.nisApi
 import com.example.beneficios_gov.databinding.ActivityConsultationBinding
+import com.example.beneficios_gov.extensions.OnCheckedChangeListener
 import com.example.beneficios_gov.extensions.vaiPara
 import com.example.beneficios_gov.utils.exibirMensagem
 import com.google.android.material.textfield.TextInputEditText
@@ -36,82 +36,54 @@ class ConsultationActivity : AppCompatActivity() {
 
         binding.cardView.setOnClickListener {
             val context = it.context
-            val dialogViewChoice =
-                LayoutInflater.from(context).inflate(R.layout.dialog_choice, null)
 
-            val btnNIS = dialogViewChoice.findViewById<Button>(R.id.btnNIS)
+            val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_nis, null)
+            val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputCpf)
+            val editText2 = dialogView.findViewById<TextInputEditText>(R.id.editTextInputData)
 
-
-            val dialogChoice = AlertDialog.Builder(context)
-                .setTitle("Realize sua consulta")
-                .setView(dialogViewChoice)
-                .setNegativeButton("Fechar", null)
-                .create()
-            dialogChoice.setOnShowListener {
-                dialogChoice.getButton(AlertDialog.BUTTON_NEGATIVE)
-                    ?.setTextColor(ContextCompat.getColor(context, R.color.gray))
-            }
-
-            btnNIS.setOnClickListener {
-
-                val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_nis, null)
-                val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputCpf)
-                val editText2 = dialogView.findViewById<TextInputEditText>(R.id.editTextInputData)
-
-                val alertDialog = AlertDialog.Builder(context)
-                    .setTitle("Digite o seu NIS e a Data a ser consultada.")
-                    .setView(dialogView)
-                    .setPositiveButton("CONSULTAR") { _, _ ->
-                        val userInput = editText.text?.toString()?.trim() ?: ""
-                        val userInputData = editText2.text?.toString()?.trim() ?: ""
-                        if (userInput.isNotEmpty() && userInputData.isNotEmpty()) {
-                            CoroutineScope(Dispatchers.IO).launch {
-                                try {
-                                    withContext(Dispatchers.Main) {
-                                        binding.progressBar.visibility = View.VISIBLE
-                                    }
-                                    Log.d(
-                                        "info_consulta",
-                                        "Iniciando a consulta NIS com o código: $userInput"
-                                    )
-                                    pesquisarCpf(userInput, userInputData)
-                                    Log.d("info_consulta", "Consulta NIS realizada com sucesso")
-                                } catch (e: Exception) {
-                                    Log.i("info_consulta", "Erro na consulta ${e.message}")
-                                } finally {
-                                    withContext(Dispatchers.Main) {
-                                        binding.progressBar.visibility = View.GONE
-                                    }
+            val alertDialog = AlertDialog.Builder(context)
+                .setTitle("Digite o seu NIS e a Data a ser consultada.")
+                .setView(dialogView)
+                .setPositiveButton("CONSULTAR") { _, _ ->
+                    val userInput = editText.text?.toString()?.trim() ?: ""
+                    val userInputData = editText2.text?.toString()?.trim() ?: ""
+                    if (userInput.isNotEmpty() && userInputData.isNotEmpty()) {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            try {
+                                withContext(Dispatchers.Main) {
+                                    binding.progressBar.visibility = View.VISIBLE
+                                }
+                                Log.d(
+                                    "info_consulta",
+                                    "Iniciando a consulta NIS com o código: $userInput"
+                                )
+                                pesquisarCpf(userInput, userInputData)
+                                Log.d("info_consulta", "Consulta NIS realizada com sucesso")
+                            } catch (e: Exception) {
+                                Log.i("info_consulta", "Erro na consulta ${e.message}")
+                            } finally {
+                                withContext(Dispatchers.Main) {
+                                    binding.progressBar.visibility = View.GONE
                                 }
                             }
-                            dialogChoice.dismiss()
-                        } else {
-                            exibirMensagem(this, "Digite o seu NIS")
                         }
+                    } else {
+                        exibirMensagem(this, "Digite o seu NIS")
                     }
-                    .setNegativeButton("Fechar", null)
-                    .create()
-                alertDialog.setOnShowListener {
-                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                        ?.setTextColor(ContextCompat.getColor(context, R.color.verde_esmeralda))
-
-                    alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-                        ?.setTextColor(ContextCompat.getColor(context, R.color.gray))
                 }
-                alertDialog.show()
-            }
+                .setNegativeButton("Fechar", null)
+                .create()
+            alertDialog.setOnShowListener {
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                    ?.setTextColor(ContextCompat.getColor(context, R.color.verde_esmeralda))
 
-            dialogChoice.show()
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                    ?.setTextColor(ContextCompat.getColor(context, R.color.gray))
+            }
+            alertDialog.show()
         }
-        /* with(binding) {
-             btnHistorico.setOnClickListener {
-                 groupMenu.visibility = if (groupMenu.isVisible) {
-                     View.INVISIBLE
-                 } else {
-                     View.VISIBLE
-                 }
-             }
-         }*/
+        val cardView2 = binding.cardView2
+        cardView2.OnCheckedChangeListener(false)
         binding.btnHistorico.setOnClickListener {
             vaiPara(HistoricoActivity::class.java)
         }

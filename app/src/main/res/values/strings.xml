@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CadFácil</string>
     <string name="consulta_cpfandnis">Consulte os registros de <b>saque</b> do seu <b>Bolsa Família</b> por <b>NIS</b> e <b>Período.</b></string>
+    <string name="consulta_safra">Consulte os registros <b>Garantia-Safra</b> por <b>NIS</b> ou <b>CPF.</b></string>
     <string name="consulte_seu_beneficio">Consulte Seu Beneficio</string>
     <string name="cpf">CPF</string>
     <string name="nis">NIS</string>
@@ -19,4 +20,5 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="salvar">Salvar</string>
     <string name="excluir">Excluir</string>
+    <string name="em_breve">Em Breve</string>
 </resources>

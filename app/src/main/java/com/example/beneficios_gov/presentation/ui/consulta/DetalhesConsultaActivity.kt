@@ -1,5 +1,6 @@
 package com.example.beneficios_gov.presentation.ui.consulta
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -59,15 +60,16 @@ class DetalhesConsultaActivity : AppCompatActivity() {
     private fun preencheCampos(consultaCarregada: ConsultaNisItem) {
         with(binding) {
             nomeBeneficiarioDetalhes.text = consultaCarregada.beneficiarioNovoBolsaFamilia.nome
-            dataDetalhes.text = consultaCarregada.dataMesReferencia
+            dataDetalhes.text = "Data Referência: ${consultaCarregada.dataMesReferencia}"
             municipioDetalhes.text = consultaCarregada.municipio.nomeRegiao
-            valor.text = consultaCarregada.valorSaque.toString()
+            valor.text = "Valor do Saque: ${consultaCarregada.valorSaque}"
         }
     }
 
     private fun inicializarToolBar() {
         binding.includedToolBarDetalhesActivity.constraintLogo.visibility = View.GONE
         binding.includedToolBarDetalhesActivity.materialToolbar.title = "Detalhes da consulta"
+        binding.includedToolBarDetalhesActivity.materialToolbar.setBackgroundColor(Color.TRANSPARENT)
         setSupportActionBar(binding.includedToolBarDetalhesActivity.materialToolbar)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)

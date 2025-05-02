@@ -53,10 +53,20 @@ class ResultadoActivity : AppCompatActivity() {
     }
 
     private fun configuraBotaoSalvar() {
-        val botaoSalvar = binding.btnSalvar
-        botaoSalvar.setOnClickListener {
-            val novaConsulta = criaConsulta()
-            consultaNisDao.salva(novaConsulta)
+        val nome = criaConsulta().beneficiarioNovoBolsaFamilia.nome
+
+        if (nome == "Benefíciario: Nenhum dado encontrado para o NIS informado") {
+            binding.btnSalvar.visibility = View.GONE
+        } else {
+            binding.btnSalvar.visibility = View.VISIBLE
+            iniciarbBotaoSalvar()
+        }
+    }
+
+    private fun iniciarbBotaoSalvar() {
+        val consulta = criaConsulta()
+        binding.btnSalvar.setOnClickListener {
+            consultaNisDao.salva(consulta)
             finish()
         }
     }
