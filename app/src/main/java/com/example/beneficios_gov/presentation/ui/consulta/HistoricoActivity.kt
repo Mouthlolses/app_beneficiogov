@@ -7,19 +7,23 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.beneficios_gov.R
 import com.example.beneficios_gov.data.dao.ConsultaNisDao
 import com.example.beneficios_gov.database.AppDatabase
 import com.example.beneficios_gov.databinding.ActivityHistoricoBinding
 import com.example.beneficios_gov.presentation.ui.CHAVE_CONSULTA_ID
 import com.example.beneficios_gov.presentation.ui.recyclerview.adapter.ListaConsultaAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HistoricoActivity : AppCompatActivity() {
 
     private val adapter = ListaConsultaAdapter(context = this)
 
     private val consultaNisDao: ConsultaNisDao by lazy {
-        val db = AppDatabase.instancia(this)
+        val db = AppDatabase.instance(this)
         db.consultaNisItem()
     }
     private val binding by lazy {
@@ -33,8 +37,12 @@ class HistoricoActivity : AppCompatActivity() {
         setContentView(binding.root)
         inicializarToolBar()
         configuraRecyclerView()
-        val consultas = consultaNisDao.buscatodos()
-        adapter.atualiza(consultas)
+        lifecycleScope.launch {
+            val consultas = withContext(Dispatchers.IO) {
+                consultaNisDao.searchAll()
+            }
+            adapter.update(consultas)
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -44,16 +52,21 @@ class HistoricoActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val db = AppDatabase.instancia(this)
+        val db = AppDatabase.instance(this)
         val consultasDao = db.consultaNisItem()
-        adapter.atualiza(consultasDao.buscatodos())
+        lifecycleScope.launch {
+           val consultas = withContext(Dispatchers.IO) {
+                consultasDao.searchAll()
+            }
+            adapter.update(consultas)
+        }
     }
 
     private fun configuraRecyclerView() {
         val recyclerView = binding.recyclerviewconsultas
         recyclerView.adapter = adapter
 
-        adapter.quandoClicarNoItem = {
+        adapter.whenClickItem = {
             val intent = Intent(
                 this,
                 DetalhesConsultaActivity::class.java

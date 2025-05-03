@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.beneficios_gov.R
 import com.example.beneficios_gov.data.dao.ConsultaNisDao
 import com.example.beneficios_gov.data.repository.BeneficiarioNovoBolsaFamilia
@@ -14,6 +15,9 @@ import com.example.beneficios_gov.data.repository.Municipio
 import com.example.beneficios_gov.data.repository.Uf
 import com.example.beneficios_gov.database.AppDatabase
 import com.example.beneficios_gov.databinding.ActivityResultadoBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ResultadoActivity : AppCompatActivity() {
 
@@ -24,7 +28,7 @@ class ResultadoActivity : AppCompatActivity() {
     private var consultaId = 0
 
     private val consultaNisDao: ConsultaNisDao by lazy {
-        val db = AppDatabase.instancia(this)
+        val db = AppDatabase.instance(this)
         db.consultaNisItem()
     }
 
@@ -66,11 +70,14 @@ class ResultadoActivity : AppCompatActivity() {
     private fun iniciarbBotaoSalvar() {
         val consulta = criaConsulta()
         binding.btnSalvar.setOnClickListener {
-            consultaNisDao.salva(consulta)
-            finish()
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    consultaNisDao.salve(consulta)
+                }
+                finish()
+            }
         }
     }
-
 
     private fun criaConsulta(): ConsultaNisItem {
         val id = intent.getIntExtra("id", 0)

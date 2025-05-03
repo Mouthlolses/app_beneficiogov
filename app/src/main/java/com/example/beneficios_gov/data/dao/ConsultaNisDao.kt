@@ -11,14 +11,14 @@ import com.example.beneficios_gov.data.repository.ConsultaNisItem
 interface ConsultaNisDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun salva(vararg consulta: ConsultaNisItem)
+    suspend fun salve(vararg consulta: ConsultaNisItem)
 
     @Query("SELECT * FROM ConsultaNisItem")
-    fun buscatodos(): List<ConsultaNisItem>
+    suspend fun searchAll(): List<ConsultaNisItem>
 
     @Delete()
-    fun remove(vararg consulta: ConsultaNisItem)
+    suspend fun delete(vararg consulta: ConsultaNisItem)
 
     @Query("SELECT * FROM ConsultaNisItem WHERE id1 = :id")
-    fun buscaPorId(id: Int?) : ConsultaNisItem?
+    suspend fun searchForId(id: Int?) : ConsultaNisItem?
 }

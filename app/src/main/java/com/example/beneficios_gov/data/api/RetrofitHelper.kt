@@ -1,7 +1,7 @@
 package com.example.beneficios_gov.data.api
 
 import com.example.beneficios_gov.BuildConfig
-import com.example.beneficios_gov.data.interfaces.CpfAPI
+import com.example.beneficios_gov.data.interfaces.NisAPI
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -23,4 +23,4 @@ val retrofit = Retrofit.Builder()
     .client(okHttpClient)
     .build()
 
-val nisApi = retrofit.create(CpfAPI::class.java)
+val nisApi = retrofit.create(NisAPI::class.java)

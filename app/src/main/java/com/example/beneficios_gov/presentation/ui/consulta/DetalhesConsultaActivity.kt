@@ -9,11 +9,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.beneficios_gov.R
 import com.example.beneficios_gov.data.repository.ConsultaNisItem
 import com.example.beneficios_gov.database.AppDatabase
 import com.example.beneficios_gov.databinding.ActivityDetalhesConsultaBinding
 import com.example.beneficios_gov.presentation.ui.CHAVE_CONSULTA_ID
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DetalhesConsultaActivity : AppCompatActivity() {
 
@@ -25,15 +29,15 @@ class DetalhesConsultaActivity : AppCompatActivity() {
     }
 
     private val ConsultaDao by lazy {
-        AppDatabase.instancia(this).consultaNisItem()
+        AppDatabase.instance(this).consultaNisItem()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
-        inicializarToolBar()
-        tentaCarregarConsulta()
+        bootingToolBar()
+        tryLoadConsultation()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -43,30 +47,34 @@ class DetalhesConsultaActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        buscaConsulta()
-    }
-
-    private fun buscaConsulta() {
-        consulta = ConsultaDao.buscaPorId(consultaId)
-        consulta?.let {
-            preencheCampos(it)
-        } ?: finish()
-    }
-
-    private fun tentaCarregarConsulta() {
-        consultaId = intent.getIntExtra(CHAVE_CONSULTA_ID, 0)
-    }
-
-    private fun preencheCampos(consultaCarregada: ConsultaNisItem) {
-        with(binding) {
-            nomeBeneficiarioDetalhes.text = consultaCarregada.beneficiarioNovoBolsaFamilia.nome
-            dataDetalhes.text = "Data Referência: ${consultaCarregada.dataMesReferencia}"
-            municipioDetalhes.text = consultaCarregada.municipio.nomeRegiao
-            valor.text = "Valor do Saque: ${consultaCarregada.valorSaque}"
+        lifecycleScope.launch {
+           withContext(Dispatchers.IO) {
+                searchConsultation()
+            }
         }
     }
 
-    private fun inicializarToolBar() {
+    private suspend fun searchConsultation() {
+        consulta = ConsultaDao.searchForId(consultaId)
+        consulta?.let {
+            fillFields(it)
+        } ?: finish()
+    }
+
+    private fun tryLoadConsultation() {
+        consultaId = intent.getIntExtra(CHAVE_CONSULTA_ID, 0)
+    }
+
+    private fun fillFields(consultationLoaded: ConsultaNisItem) {
+        with(binding) {
+            nomeBeneficiarioDetalhes.text = consultationLoaded.beneficiarioNovoBolsaFamilia.nome
+            dataDetalhes.text = "Data Referência: ${consultationLoaded.dataMesReferencia}"
+            municipioDetalhes.text = consultationLoaded.municipio.nomeRegiao
+            valor.text = "Valor do Saque: ${consultationLoaded.valorSaque}"
+        }
+    }
+
+    private fun bootingToolBar() {
         binding.includedToolBarDetalhesActivity.constraintLogo.visibility = View.GONE
         binding.includedToolBarDetalhesActivity.materialToolbar.title = "Detalhes da consulta"
         binding.includedToolBarDetalhesActivity.materialToolbar.setBackgroundColor(Color.TRANSPARENT)
@@ -75,6 +83,7 @@ class DetalhesConsultaActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_detalhes, menu)
         return true
@@ -83,8 +92,14 @@ class DetalhesConsultaActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.excluir -> {
-                consulta?.let { ConsultaDao.remove(it) }
-                finish()
+                consulta?.let {
+                    lifecycleScope.launch {
+                        withContext(Dispatchers.IO) {
+                            ConsultaDao.delete(it)
+                        }
+                        finish()
+                    }
+                }
                 true
             }
             else -> {

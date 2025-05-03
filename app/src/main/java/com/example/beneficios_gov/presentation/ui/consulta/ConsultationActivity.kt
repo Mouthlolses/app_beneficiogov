@@ -57,7 +57,7 @@ class ConsultationActivity : AppCompatActivity() {
                                     "info_consulta",
                                     "Iniciando a consulta NIS com o código: $userInput"
                                 )
-                                pesquisarCpf(userInput, userInputData)
+                                searchNis(userInput, userInputData)
                                 Log.d("info_consulta", "Consulta NIS realizada com sucesso")
                             } catch (e: Exception) {
                                 Log.i("info_consulta", "Erro na consulta ${e.message}")
@@ -95,11 +95,11 @@ class ConsultationActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun pesquisarCpf(nis: String, data: String) {
+    private suspend fun searchNis(nis: String, data: String) {
 
         try {
-            val cpfApi = nisApi
-            val response = cpfApi.consultarNis(
+            val nisApiItem = nisApi
+            val response = nisApiItem.consultarNis(
                 nis = nis,
                 anoMesReferencia = data,
                 pagina = 1

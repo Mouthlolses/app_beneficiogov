@@ -9,12 +9,12 @@ import com.example.beneficios_gov.databinding.CardConsultaBinding
 
 class ListaConsultaAdapter(
     private val context: Context,
-    consultas: List<ConsultaNisItem> = emptyList(),
+    consultations: List<ConsultaNisItem> = emptyList(),
 
-    var quandoClicarNoItem: (minhaConsulta: ConsultaNisItem) -> Unit = {}
+    var whenClickItem: (myConsultation: ConsultaNisItem) -> Unit = {}
 ) : RecyclerView.Adapter<ListaConsultaAdapter.ViewHolder>() {
 
-    private val consulta = consultas.toMutableList()
+    private val consultation = consultations.toMutableList()
 
     inner class ViewHolder(private val binding: CardConsultaBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -26,13 +26,13 @@ class ListaConsultaAdapter(
             itemView.setOnClickListener {
                 // verificação da existência de valores em property lateinit
                 if (::consultas.isInitialized) {
-                    quandoClicarNoItem(consultas)
+                    whenClickItem(consultas)
                 }
             }
         }
 
-        fun vincula(consulta: ConsultaNisItem) {
-            this.consultas = consulta
+        fun bind(consultation: ConsultaNisItem) {
+            this.consultas = consultation
             val nomeConsultado = binding.nomeBeneficiario
             nomeConsultado.text = consultas.beneficiarioNovoBolsaFamilia.nome
             val data = binding.dataConsulta
@@ -57,15 +57,15 @@ class ListaConsultaAdapter(
         holder: ViewHolder,
         position: Int
     ) {
-        val item = consulta[position]
-        holder.vincula(item)
+        val item = consultation[position]
+        holder.bind(item)
     }
 
-    override fun getItemCount(): Int = consulta.size
+    override fun getItemCount(): Int = consultation.size
 
-    fun atualiza(novasConsultas: List<ConsultaNisItem>) {
-        consulta.clear()
-        consulta.addAll(novasConsultas)
+    fun update(newConsultation: List<ConsultaNisItem>) {
+        consultation.clear()
+        consultation.addAll(newConsultation)
         notifyDataSetChanged()
     }
 }

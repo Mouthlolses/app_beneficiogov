@@ -12,14 +12,23 @@ import com.example.beneficios_gov.data.repository.ConsultaNisItem
 @TypeConverters()
 abstract class AppDatabase : RoomDatabase() {
     abstract fun consultaNisItem(): ConsultaNisDao
+
     companion object {
-        fun instancia(context: Context): AppDatabase {
-            return Room.databaseBuilder(
-                context,
-                AppDatabase::class.java,
-                "cadFacil.db"
-            ).allowMainThreadQueries()
-                .build()
+
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
+
+        fun instance(context: Context): AppDatabase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "cadFacil.db"
+                )
+                    .build()
+                INSTANCE = instance
+                instance
+            }
         }
     }
 }
