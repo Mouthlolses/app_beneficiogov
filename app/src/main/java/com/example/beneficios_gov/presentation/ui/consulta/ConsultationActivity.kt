@@ -107,7 +107,7 @@ class ConsultationActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_POST_NOTIFICATIONS) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                exibirMensagem(this,"Notificações Ativdas")
+                exibirMensagem(this,"Notificações Ativadas")
             } else {
                 null
             }
