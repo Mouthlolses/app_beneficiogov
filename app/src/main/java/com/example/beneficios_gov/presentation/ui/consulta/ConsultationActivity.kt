@@ -1,6 +1,7 @@
 package com.example.beneficios_gov.presentation.ui.consulta
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +17,8 @@ import com.example.beneficios_gov.data.api.nisApi
 import com.example.beneficios_gov.databinding.ActivityConsultationBinding
 import com.example.beneficios_gov.extensions.OnCheckedChangeListener
 import com.example.beneficios_gov.extensions.vaiPara
+import com.example.beneficios_gov.notification.configureNotification
+import com.example.beneficios_gov.presentation.ui.REQUEST_CODE_POST_NOTIFICATIONS
 import com.example.beneficios_gov.utils.exibirMensagem
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.CoroutineScope
@@ -33,6 +36,8 @@ class ConsultationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
+
+        configureNotification(this, this)
 
         binding.cardView.setOnClickListener {
             val context = it.context
@@ -94,6 +99,21 @@ class ConsultationActivity : AppCompatActivity() {
             insets
         }
     }
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE_POST_NOTIFICATIONS) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                exibirMensagem(this,"Notificações Ativdas")
+            } else {
+                null
+            }
+        }
+    }
+
 
     private suspend fun searchNis(nis: String, data: String) {
 

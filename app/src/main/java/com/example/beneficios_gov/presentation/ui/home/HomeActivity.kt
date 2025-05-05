@@ -29,4 +29,42 @@ class HomeActivity : AppCompatActivity() {
             insets
         }
     }
+
+    /*   private fun canalDeNotificacao() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Canal Padrão"
+            val descricao = "Canal para notificações gerais"
+            val importancia = NotificationManager.IMPORTANCE_DEFAULT
+            val canal = NotificationChannel("canal_notificacao", name, importancia).apply {
+                description = descricao
+            }
+
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(canal)
+
+        }
+    }
+
+    private fun exibirNotificacao(titulo: String, mensagem: String) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            val builder = NotificationCompat.Builder(this, "canal_notificacao")
+                .setSmallIcon(R.drawable.circle_notifications) // substitua por um ícone real
+                .setContentTitle(titulo)
+                .setContentText(mensagem)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+            with(NotificationManagerCompat.from(this)) {
+                notify(1, builder.build())
+            }
+        } else {
+            exibirMensagem(this, "Permissão não concedida")
+        }
+    }
+*/
 }
