@@ -15,6 +15,7 @@ import com.example.beneficios_gov.data.repository.Municipio
 import com.example.beneficios_gov.data.repository.Uf
 import com.example.beneficios_gov.database.AppDatabase
 import com.example.beneficios_gov.databinding.ActivityResultadoBinding
+import com.example.beneficios_gov.extensions.vaiPara
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -38,6 +39,7 @@ class ResultadoActivity : AppCompatActivity() {
         setContentView(binding.root)
         iniciarToolBar()
         configuraBotaoSalvar()
+        configuraBotaoNovaConsulta()
         // Recuperar os dados passados pela Intent
         val nome = intent.getStringExtra("nome") ?: "Nenhum dado encontrado para o NIS informado"
         val cpfFormatado = intent.getStringExtra("cpfFormatado") ?: ""
@@ -59,6 +61,13 @@ class ResultadoActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+    }
+
+    private fun configuraBotaoNovaConsulta(){
+        binding.btnNovaConsulta.setOnClickListener {
+            vaiPara(ConsultationActivity::class.java)
+            finish()
         }
     }
 

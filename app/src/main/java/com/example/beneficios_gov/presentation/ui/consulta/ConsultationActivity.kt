@@ -165,6 +165,7 @@ class ConsultationActivity : AppCompatActivity() {
 
                     // Iniciar a nova Activity
                     startActivity(intent)
+                    finish()
                 }
             } else {
                 Log.e("info_consulta", "Erro ao obter resposta da API")
