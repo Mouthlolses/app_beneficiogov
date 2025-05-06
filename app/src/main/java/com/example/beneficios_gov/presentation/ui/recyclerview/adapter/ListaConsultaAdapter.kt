@@ -35,10 +35,16 @@ class ListaConsultaAdapter(
             this.consultas = consultation
             val nomeConsultado = binding.nomeBeneficiario
             nomeConsultado.text = consultas.beneficiarioNovoBolsaFamilia.nome
+            val cpfFormatado = binding.cpfConsultado
+            cpfFormatado.text = consultas.beneficiarioNovoBolsaFamilia.cpfFormatado
             val data = binding.dataConsulta
             data.text = "Data Referência: ${consultas.dataMesReferencia}"
             val municipio = binding.municipio
             municipio.text = consultas.municipio.nomeRegiao
+            val ufSigla = binding.ufSigla
+            ufSigla.text = consultas.municipio.uf.sigla
+            val nomeIBGE = binding.nomeIBGE
+            nomeIBGE.text = consultas.municipio.nomeIBGE
             val valor = binding.valorSacado
             valor.text = "Valor Sacado: ${consultas.valorSaque}"
         }

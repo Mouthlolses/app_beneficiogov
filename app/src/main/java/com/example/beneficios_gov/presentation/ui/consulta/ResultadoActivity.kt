@@ -88,13 +88,16 @@ class ResultadoActivity : AppCompatActivity() {
     private fun criaConsulta(): ConsultaNisItem {
         val id = intent.getIntExtra("id", 0)
         val nome = intent.getStringExtra("nome") ?: "Nenhum dado encontrado para o NIS informado"
+        val cpfFormatado = intent.getStringExtra("cpfFormatado") ?: ""
         val municipio = intent.getStringExtra("municipio") ?: ""
+        val estado = intent.getStringExtra("estado") ?: ""
+        val cidade = intent.getStringExtra("cidade") ?: ""
         val data = intent.getStringExtra("data") ?: ""
         val valor = intent.getIntExtra("valor", 0)
 
-        val uf = Uf("", "")
-        val beneficiario = BeneficiarioNovoBolsaFamilia("", "", "Benefíciario: $nome")
-        val municipioReal = Municipio("", "", "", "Região: $municipio", "", uf)
+        val uf = Uf("", "Estado: $estado")
+        val beneficiario = BeneficiarioNovoBolsaFamilia("CPF: $cpfFormatado", "", "Benefíciario: $nome")
+        val municipioReal = Municipio("", "", "Cidade: $cidade", "Região: $municipio", "", uf)
 
         return ConsultaNisItem(
             id1 = consultaId,

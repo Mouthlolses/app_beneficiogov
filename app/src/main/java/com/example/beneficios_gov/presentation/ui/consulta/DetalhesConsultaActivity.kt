@@ -68,8 +68,11 @@ class DetalhesConsultaActivity : AppCompatActivity() {
     private fun fillFields(consultationLoaded: ConsultaNisItem) {
         with(binding) {
             nomeBeneficiarioDetalhes.text = consultationLoaded.beneficiarioNovoBolsaFamilia.nome
+            cpfFormatadoDetalhes.text = consultationLoaded.beneficiarioNovoBolsaFamilia.cpfFormatado
             dataDetalhes.text = "Data Referência: ${consultationLoaded.dataMesReferencia}"
             municipioDetalhes.text = consultationLoaded.municipio.nomeRegiao
+            ufSiglaDetalhes.text = consultationLoaded.municipio.uf.sigla
+            cidadeDetalhes.text = consultationLoaded.municipio.nomeIBGE
             valor.text = "Valor do Saque: ${consultationLoaded.valorSaque}"
         }
     }
