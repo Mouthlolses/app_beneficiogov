@@ -147,13 +147,19 @@ class ConsultationActivity : AppCompatActivity() {
                     val nome =
                         body?.firstOrNull()?.beneficiarioNovoBolsaFamilia?.nome
                             ?: "Nenhum dado encontrado para o NIS informado"
+                    val cpfFormatado = body?.firstOrNull()?.beneficiarioNovoBolsaFamilia?.cpfFormatado
                     val municipio = body?.firstOrNull()?.municipio?.nomeRegiao
+                    val ufSigla = body?.firstOrNull()?.municipio?.uf?.sigla
+                    val cidade = body?.firstOrNull()?.municipio?.nomeIBGE
                     val data = body?.firstOrNull()?.dataMesReferencia
                     val valor = body?.firstOrNull()?.valorSaque
 
                     intent.putExtra("id", id)
                     intent.putExtra("nome", nome)
+                    intent.putExtra("cpfFormatado", cpfFormatado)
                     intent.putExtra("municipio", municipio)
+                    intent.putExtra("estado", ufSigla)
+                    intent.putExtra("cidade", cidade)
                     intent.putExtra("data", data)
                     intent.putExtra("valor", valor)
 

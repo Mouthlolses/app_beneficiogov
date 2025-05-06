@@ -40,12 +40,18 @@ class ResultadoActivity : AppCompatActivity() {
         configuraBotaoSalvar()
         // Recuperar os dados passados pela Intent
         val nome = intent.getStringExtra("nome") ?: "Nenhum dado encontrado para o NIS informado"
+        val cpfFormatado = intent.getStringExtra("cpfFormatado") ?: ""
         val municipio = intent.getStringExtra("municipio") ?: ""
+        val estado = intent.getStringExtra("estado") ?: ""
+        val cidade = intent.getStringExtra("cidade") ?: ""
         val data = intent.getStringExtra("data") ?: ""
         val valor = intent.getIntExtra("valor", 0)
 
         binding.meuCard.nomeBeneficiario.text = "Benefíciario: $nome"
+        binding.meuCard.cpfConsultado.text = "CPF: $cpfFormatado"
         binding.meuCard.municipio.text = "Região: $municipio"
+        binding.meuCard.ufSigla.text = "Estado: $estado"
+        binding.meuCard.nomeIBGE.text = "Cidade: $cidade"
         binding.meuCard.dataConsulta.text = "Data Referência: $data"
         binding.meuCard.valorSacado.text = "Valor Sacado: $valor"
 
@@ -105,7 +111,7 @@ class ResultadoActivity : AppCompatActivity() {
 
     private fun iniciarToolBar() {
         binding.includedToolBarResultActivity.constraintLogo.visibility = View.GONE
-        binding.includedToolBarResultActivity.materialToolbar.title = "Consulta"
+        binding.includedToolBarResultActivity.materialToolbar.title = "Resultado"
         setSupportActionBar(binding.includedToolBarResultActivity.materialToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
