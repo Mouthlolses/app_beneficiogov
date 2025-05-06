@@ -64,7 +64,7 @@ class ResultadoActivity : AppCompatActivity() {
         }
     }
 
-    private fun configuraBotaoNovaConsulta(){
+    private fun configuraBotaoNovaConsulta() {
         binding.btnNovaConsulta.setOnClickListener {
             vaiPara(ConsultationActivity::class.java)
             finish()
@@ -105,7 +105,8 @@ class ResultadoActivity : AppCompatActivity() {
         val valor = intent.getIntExtra("valor", 0)
 
         val uf = Uf("", "Estado: $estado")
-        val beneficiario = BeneficiarioNovoBolsaFamilia("CPF: $cpfFormatado", "", "Benefíciario: $nome")
+        val beneficiario =
+            BeneficiarioNovoBolsaFamilia("CPF: $cpfFormatado", "", "Benefíciario: $nome")
         val municipioReal = Municipio("", "", "Cidade: $cidade", "Região: $municipio", "", uf)
 
         return ConsultaNisItem(

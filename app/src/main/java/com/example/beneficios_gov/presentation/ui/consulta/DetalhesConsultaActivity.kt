@@ -48,7 +48,7 @@ class DetalhesConsultaActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         lifecycleScope.launch {
-           withContext(Dispatchers.IO) {
+            withContext(Dispatchers.IO) {
                 searchConsultation()
             }
         }
@@ -105,6 +105,7 @@ class DetalhesConsultaActivity : AppCompatActivity() {
                 }
                 true
             }
+
             else -> {
                 return super.onOptionsItemSelected(item)
             }

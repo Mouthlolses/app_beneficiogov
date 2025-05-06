@@ -55,7 +55,7 @@ class HistoricoActivity : AppCompatActivity() {
         val db = AppDatabase.instance(this)
         val consultasDao = db.consultaNisItem()
         lifecycleScope.launch {
-           val consultas = withContext(Dispatchers.IO) {
+            val consultas = withContext(Dispatchers.IO) {
                 consultasDao.searchAll()
             }
             adapter.update(consultas)

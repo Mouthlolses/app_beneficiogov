@@ -47,33 +47,40 @@ class ConsultationActivity : AppCompatActivity() {
             val editText2 = dialogView.findViewById<TextInputEditText>(R.id.editTextInputData)
 
             val alertDialog = AlertDialog.Builder(context)
-                .setTitle("Digite o seu NIS e a Data a ser consultada.")
+                .setTitle(
+                    "> Digite o seu NIS\n" +
+                            "> Digite a Data Referência\n"
+                )
                 .setView(dialogView)
                 .setPositiveButton("CONSULTAR") { _, _ ->
                     val userInput = editText.text?.toString()?.trim() ?: ""
                     val userInputData = editText2.text?.toString()?.trim() ?: ""
                     if (userInput.isNotEmpty() && userInputData.isNotEmpty()) {
-                        CoroutineScope(Dispatchers.IO).launch {
-                            try {
-                                withContext(Dispatchers.Main) {
-                                    binding.progressBar.visibility = View.VISIBLE
-                                }
-                                Log.d(
-                                    "info_consulta",
-                                    "Iniciando a consulta NIS com o código: $userInput"
-                                )
-                                searchNis(userInput, userInputData)
-                                Log.d("info_consulta", "Consulta NIS realizada com sucesso")
-                            } catch (e: Exception) {
-                                Log.i("info_consulta", "Erro na consulta ${e.message}")
-                            } finally {
-                                withContext(Dispatchers.Main) {
-                                    binding.progressBar.visibility = View.GONE
+                        if (userInput.length == 11 && userInputData.length == 6) {
+                            CoroutineScope(Dispatchers.IO).launch {
+                                try {
+                                    withContext(Dispatchers.Main) {
+                                        binding.progressBar.visibility = View.VISIBLE
+                                    }
+                                    Log.d(
+                                        "info_consulta",
+                                        "Iniciando a consulta NIS com o código: $userInput"
+                                    )
+                                    searchNis(userInput, userInputData)
+                                    Log.d("info_consulta", "Consulta NIS realizada com sucesso")
+                                } catch (e: Exception) {
+                                    Log.i("info_consulta", "Erro na consulta ${e.message}")
+                                } finally {
+                                    withContext(Dispatchers.Main) {
+                                        binding.progressBar.visibility = View.GONE
+                                    }
                                 }
                             }
+                        } else {
+                            exibirMensagem(this, "Complete os dados corretamente")
                         }
                     } else {
-                        exibirMensagem(this, "Digite o seu NIS")
+                        exibirMensagem(this, "Insira seu NIS e Data Referência")
                     }
                 }
                 .setNegativeButton("Fechar", null)
@@ -99,6 +106,7 @@ class ConsultationActivity : AppCompatActivity() {
             insets
         }
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -107,7 +115,7 @@ class ConsultationActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_POST_NOTIFICATIONS) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                exibirMensagem(this,"Notificações Ativadas")
+                exibirMensagem(this, "Notificações Ativadas")
             } else {
                 null
             }
@@ -147,7 +155,8 @@ class ConsultationActivity : AppCompatActivity() {
                     val nome =
                         body?.firstOrNull()?.beneficiarioNovoBolsaFamilia?.nome
                             ?: "Nenhum dado encontrado para o NIS informado"
-                    val cpfFormatado = body?.firstOrNull()?.beneficiarioNovoBolsaFamilia?.cpfFormatado
+                    val cpfFormatado =
+                        body?.firstOrNull()?.beneficiarioNovoBolsaFamilia?.cpfFormatado
                     val municipio = body?.firstOrNull()?.municipio?.nomeRegiao
                     val ufSigla = body?.firstOrNull()?.municipio?.uf?.sigla
                     val cidade = body?.firstOrNull()?.municipio?.nomeIBGE
