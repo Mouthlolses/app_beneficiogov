@@ -41,7 +41,7 @@
         app:cornerRadius="16dp"
         app:layout_constraintBottom_toTopOf="@+id/btnNovaConsulta"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -50,7 +50,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="@color/green"
         android:elevation="8dp"
         android:text="@string/realizar_nova_consulta"
