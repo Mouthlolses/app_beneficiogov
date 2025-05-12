@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.beneficios_gov.data.dao.ConsultaNisDao
-import com.example.beneficios_gov.data.repository.ConsultaNisItem
+import com.example.beneficios_gov.data.model.ConsultaNisItem
 
 @Database(entities = [ConsultaNisItem::class], version = 1, exportSchema = false)
 @TypeConverters()

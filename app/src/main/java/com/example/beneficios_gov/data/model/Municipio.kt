@@ -1,4 +1,4 @@
-package com.example.beneficios_gov.data.repository
+package com.example.beneficios_gov.data.model
 
 import android.os.Parcelable
 import androidx.room.Embedded
