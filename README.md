@@ -31,3 +31,11 @@ The app integrates with the Brazilian Government’s Open Data API to fetch up-t
 * Room – Optional local data storage
 
 
+
+<p>
+  <img src="Screenshot_20250531_235744.png" width="300" style="display:inline-block; margin-right: 10px;"/>
+  <img src="Screenshot_20250531_235756.png" width="300" style="display:inline-block; margin-right: 10px;"/>
+  <img src="Screenshot_20250531_235816.png" width="300" style="display:inline-block; margin-right: 10px;"/>
+  <img src="Screenshot_20250531_235822.png" width="300" style="display:inline-block; margin-right: 10px;"/>
+</p>
+
