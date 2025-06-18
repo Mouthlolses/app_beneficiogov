@@ -15,15 +15,5 @@ class ApiUnitTest {
     @Test
     fun buscarDadosNaApi() = runBlocking {
 
-        val userInput = "16315869824"
-        val userDataInput = "202501"
-
-        val response = nisApi.consultarNis(
-            nis  = userInput,
-            anoMesReferencia = userDataInput,
-            pagina = 1
-        )
-
-        print(response)
     }
 }
