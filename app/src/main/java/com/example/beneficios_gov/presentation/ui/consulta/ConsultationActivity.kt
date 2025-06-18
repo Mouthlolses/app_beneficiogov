@@ -124,7 +124,6 @@ class ConsultationActivity : AppCompatActivity() {
 
 
     private suspend fun searchNis(nis: String, data: String) {
-
         try {
             val nisApiItem = nisApi
             val response = nisApiItem.consultarNis(
