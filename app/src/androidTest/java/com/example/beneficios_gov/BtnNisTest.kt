@@ -1,6 +1,5 @@
 package com.example.beneficios_gov
 
-import android.widget.Button
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
