@@ -19,21 +19,27 @@
         <activity
             android:name=".presentation.ui.consulta.DetalhesConsultaActivity"
             android:exported="false"
-            android:parentActivityName=".presentation.ui.consulta.HistoricoActivity"/>
+            android:parentActivityName=".presentation.ui.consulta.HistoricoActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presentation.ui.consulta.ResultadoActivity"
             android:exported="false"
-            android:parentActivityName=".presentation.ui.consulta.ConsultationActivity" />
+            android:parentActivityName=".presentation.ui.consulta.ConsultationActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presentation.ui.consulta.HistoricoActivity"
             android:exported="false"
-            android:parentActivityName=".presentation.ui.consulta.ConsultationActivity" />
+            android:parentActivityName=".presentation.ui.consulta.ConsultationActivity"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".presentation.ui.consulta.ConsultationActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presentation.ui.home.HomeActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
