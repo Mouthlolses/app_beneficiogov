@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -47,6 +48,8 @@ class ConsultationActivity : AppCompatActivity() {
             val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_nis, null)
             val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputCpf)
             val editText2 = dialogView.findViewById<TextInputEditText>(R.id.editTextInputData)
+            val errorEditText = dialogView.findViewById<TextView>(R.id.errorTextView)
+
 
             val alertDialog = AlertDialog.Builder(context)
                 .setTitle(
@@ -54,48 +57,55 @@ class ConsultationActivity : AppCompatActivity() {
                             "> Digite a Data Referência\n"
                 )
                 .setView(dialogView)
-                .setPositiveButton("CONSULTAR") { _, _ ->
-                    val userInput = editText.text?.toString()?.trim() ?: ""
-                    val userInputData = editText2.text?.toString()?.trim() ?: ""
-                    if (userInput.isNotEmpty() && userInputData.isNotEmpty()) {
-                        if (userInput.length == 11 && userInputData.length == 6) {
-                            CoroutineScope(Dispatchers.IO).launch {
-                                try {
-                                    withContext(Dispatchers.Main) {
-                                        binding.progressBar.visibility = View.VISIBLE
-                                    }
-                                    Log.d(
-                                        "info_consulta",
-                                        "Iniciando a consulta NIS com o código: $userInput"
-                                    )
-                                    searchNis(userInput, userInputData)
-                                    Log.d("info_consulta", "Consulta NIS realizada com sucesso")
-                                } catch (e: Exception) {
-                                    Log.i("info_consulta", "Erro na consulta ${e.message}")
-                                } finally {
-                                    withContext(Dispatchers.Main) {
-                                        binding.progressBar.visibility = View.GONE
-                                    }
-                                }
-                            }
-                        } else {
-                            exibirMensagem(this, "Complete os dados corretamente")
-                        }
-                    } else {
-                        exibirMensagem(this, "Insira seu NIS e Data Referência")
-                    }
-                }
+                .setPositiveButton("CONSULTAR", null)
                 .setNegativeButton("Fechar", null)
                 .create()
-            alertDialog.setOnShowListener {
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                    ?.setTextColor(ContextCompat.getColor(context, R.color.verde_esmeralda))
 
-                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-                    ?.setTextColor(ContextCompat.getColor(context, R.color.gray))
+            alertDialog.setOnShowListener {
+                val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+
+                positiveButton?.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.verde_esmeralda
+                    )
+                )
+                negativeButton?.setTextColor(ContextCompat.getColor(context, R.color.gray))
+                positiveButton.setOnClickListener {
+                    val userInput = editText.text?.toString()?.trim() ?: ""
+                    val userInputData = editText2.text?.toString()?.trim() ?: ""
+
+                    if (userInput.isEmpty() || userInputData.isEmpty()) {
+                        errorEditText.text = "Por favor, preencha todos os campos."
+                        errorEditText.visibility = View.VISIBLE
+                    } else if (userInput.length != 11 || userInputData.length != 6) {
+                        errorEditText.text = "NIS deve ter 11 dígitos e Data 6 (MMYYYY)."
+                        errorEditText.visibility = View.VISIBLE
+                    } else {
+                        errorEditText.visibility = View.GONE
+                        alertDialog.dismiss()
+                        CoroutineScope(Dispatchers.IO).launch {
+                            try {
+                                withContext(Dispatchers.Main) {
+                                    binding.progressBar.visibility = View.VISIBLE
+                                    dialogView.visibility = View.GONE
+                                }
+                                searchNis(userInput, userInputData)
+                            } catch (e: Exception) {
+                                Log.e("consulta", "Erro: ${e.message}")
+                            } finally {
+                                withContext(Dispatchers.Main) {
+                                    binding.progressBar.visibility = View.GONE
+                                }
+                            }
+                        }
+                    }
+                }
             }
             alertDialog.show()
         }
+
         val cardView2 = binding.cardView2
         cardView2.OnCheckedChangeListener(false)
         binding.btnHistorico.setOnClickListener {
@@ -133,9 +143,6 @@ class ConsultationActivity : AppCompatActivity() {
                 anoMesReferencia = data,
                 pagina = 1
             )
-            Log.d("info_consulta", "Código da resposta: ${response.code()}")
-            Log.d("info_consulta", "Body da resposta: ${response.body()}")
-            Log.d("info_consulta", "Erro: ${response.errorBody()?.string()}")
             if (response.isSuccessful && response.body() != null) {
                 val body = response.body()
 
@@ -149,7 +156,8 @@ class ConsultationActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     // Criando um Intent para a nova Activity
-                    val intent = Intent(this@ConsultationActivity, ResultadoActivity::class.java)
+                    val intent =
+                        Intent(this@ConsultationActivity, ResultadoActivity::class.java)
 
                     // Exemplo de como passar dados para a nova activity (pode ser um nome ou uma lista)
                     val id = body?.firstOrNull()?.idAPi?.toInt()
