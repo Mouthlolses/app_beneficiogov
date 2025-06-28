@@ -1,4 +1,4 @@
-package com.example.beneficios_gov.data.model
+package com.example.beneficios_gov.data.model.nis
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

@@ -5,7 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.beneficios_gov.data.model.ConsultaNisItem
+import com.example.beneficios_gov.data.model.nis.ConsultaNisItem
 
 @Dao
 interface ConsultaNisDao {

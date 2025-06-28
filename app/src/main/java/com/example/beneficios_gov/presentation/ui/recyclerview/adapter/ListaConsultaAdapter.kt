@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.beneficios_gov.data.model.ConsultaNisItem
+import com.example.beneficios_gov.data.model.nis.ConsultaNisItem
 import com.example.beneficios_gov.databinding.CardConsultaBinding
 
 class ListaConsultaAdapter(

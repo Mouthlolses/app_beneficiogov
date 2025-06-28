@@ -11,7 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.beneficios_gov.R
-import com.example.beneficios_gov.data.model.ConsultaNisItem
+import com.example.beneficios_gov.data.model.nis.ConsultaNisItem
 import com.example.beneficios_gov.database.AppDatabase
 import com.example.beneficios_gov.databinding.ActivityDetalhesConsultaBinding
 import com.example.beneficios_gov.presentation.ui.CHAVE_CONSULTA_ID

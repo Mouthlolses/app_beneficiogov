@@ -6,8 +6,6 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
-
 val okHttpClient = OkHttpClient.Builder()
     .addInterceptor { chain ->
         val request = chain.request().newBuilder()
@@ -17,10 +15,10 @@ val okHttpClient = OkHttpClient.Builder()
     }
     .build()
 
-val retrofit = Retrofit.Builder()
+val apiNis: Retrofit = Retrofit.Builder()
     .baseUrl("https://api.portaldatransparencia.gov.br/api-de-dados/")
     .addConverterFactory(GsonConverterFactory.create())
     .client(okHttpClient)
     .build()
 
-val nisApi = retrofit.create(NisAPI::class.java)
+val nisApi = apiNis.create(NisAPI::class.java)

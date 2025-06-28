@@ -9,10 +9,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.beneficios_gov.R
 import com.example.beneficios_gov.data.dao.ConsultaNisDao
-import com.example.beneficios_gov.data.model.BeneficiarioNovoBolsaFamilia
-import com.example.beneficios_gov.data.model.ConsultaNisItem
-import com.example.beneficios_gov.data.model.Municipio
-import com.example.beneficios_gov.data.model.Uf
+import com.example.beneficios_gov.data.model.nis.BeneficiarioNovoBolsaFamilia
+import com.example.beneficios_gov.data.model.nis.ConsultaNisItem
+import com.example.beneficios_gov.data.model.nis.Municipio
+import com.example.beneficios_gov.data.model.nis.Uf
 import com.example.beneficios_gov.database.AppDatabase
 import com.example.beneficios_gov.databinding.ActivityResultadoBinding
 import com.example.beneficios_gov.extensions.vaiPara

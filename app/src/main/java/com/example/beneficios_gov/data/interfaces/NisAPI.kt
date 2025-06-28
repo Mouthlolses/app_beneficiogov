@@ -1,6 +1,6 @@
 package com.example.beneficios_gov.data.interfaces
 
-import com.example.beneficios_gov.data.model.ConsultaNisItem
+import com.example.beneficios_gov.data.model.nis.ConsultaNisItem
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
