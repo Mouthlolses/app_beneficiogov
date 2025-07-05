@@ -11,7 +11,7 @@ val client = OkHttpClient.Builder()
 
 
 val apiMoeda = Retrofit.Builder()
-    .baseUrl("https://brasilapi.com.br/api/cambio/v1/")
+    .baseUrl("https://brasilapi.com.br")
     .addConverterFactory(GsonConverterFactory.create())
     .client(client)
     .build()
