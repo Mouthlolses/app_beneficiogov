@@ -1,6 +1,6 @@
 package com.example.beneficios_gov
 
-import com.example.beneficios_gov.data.api.moedaApi
+import com.example.beneficios_gov.data.api.coinApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.fail
@@ -17,7 +17,7 @@ class ApiUnitTest {
 
     @Test
     fun buscarDadosNaApi() = runBlocking {
-        val response = moedaApi.searchCotacao("USD","2025-02-13")
+        val response = coinApi.searchCotacao("USD","2025-02-13")
 
         if(response.isSuccessful) {
             val body = response.body()

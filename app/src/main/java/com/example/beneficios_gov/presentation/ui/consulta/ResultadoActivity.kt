@@ -15,7 +15,7 @@ import com.example.beneficios_gov.data.model.nis.Municipio
 import com.example.beneficios_gov.data.model.nis.Uf
 import com.example.beneficios_gov.database.AppDatabase
 import com.example.beneficios_gov.databinding.ActivityResultadoBinding
-import com.example.beneficios_gov.extensions.vaiPara
+import com.example.beneficios_gov.extensions.goTo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -66,7 +66,7 @@ class ResultadoActivity : AppCompatActivity() {
 
     private fun configuraBotaoNovaConsulta() {
         binding.btnNovaConsulta.setOnClickListener {
-            vaiPara(ConsultationActivity::class.java)
+            goTo(ConsultationActivity::class.java)
             finish()
         }
     }

@@ -16,4 +16,4 @@ val apiMoeda = Retrofit.Builder()
     .client(client)
     .build()
 
-val moedaApi = apiMoeda.create(MoedaAPI::class.java)
+val coinApi = apiMoeda.create(MoedaAPI::class.java)

@@ -15,10 +15,10 @@ import androidx.core.graphics.toColorInt
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.beneficios_gov.R
+import com.example.beneficios_gov.data.api.coinApi
 import com.example.beneficios_gov.data.api.nisApi
 import com.example.beneficios_gov.databinding.ActivityConsultationBinding
-import com.example.beneficios_gov.extensions.OnCheckedChangeListener
-import com.example.beneficios_gov.extensions.vaiPara
+import com.example.beneficios_gov.extensions.goTo
 import com.example.beneficios_gov.notification.configureNotification
 import com.example.beneficios_gov.presentation.ui.REQUEST_CODE_POST_NOTIFICATIONS
 import com.example.beneficios_gov.utils.exibirMensagem
@@ -106,10 +106,8 @@ class ConsultationActivity : AppCompatActivity() {
             alertDialog.show()
         }
 
-        val cardView2 = binding.cardView2
-        cardView2.OnCheckedChangeListener(false)
         binding.btnHistorico.setOnClickListener {
-            vaiPara(HistoricoActivity::class.java)
+            goTo(HistoricoActivity::class.java)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -160,7 +158,7 @@ class ConsultationActivity : AppCompatActivity() {
                         Intent(this@ConsultationActivity, ResultadoActivity::class.java)
 
                     // Exemplo de como passar dados para a nova activity (pode ser um nome ou uma lista)
-                    val id = body?.firstOrNull()?.idAPi?.toInt()
+                    val id = body?.firstOrNull()?.idAPi
                     val nome =
                         body?.firstOrNull()?.beneficiarioNovoBolsaFamilia?.nome
                             ?: "Nenhum dado encontrado para o NIS informado"
@@ -191,4 +189,21 @@ class ConsultationActivity : AppCompatActivity() {
             Log.i("info_consulta", "Consulta não ocorreu: ${e.message}")
         }
     }
+
+    private suspend fun searchCoin(coin: String, dataCoin: String) {
+        try {
+            val coinApiItem = coinApi
+            val response = coinApiItem.searchCotacao(
+                moeda = coin,
+                data = dataCoin
+            )
+
+
+
+
+        } catch (e: Exception) {
+
+        }
+    }
+
 }

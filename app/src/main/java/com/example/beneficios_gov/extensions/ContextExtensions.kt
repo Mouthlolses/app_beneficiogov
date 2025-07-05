@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 
 
-fun Context.vaiPara(clazz: Class<*>) {
+fun Context.goTo(clazz: Class<*>) {
     Intent(this, clazz).apply {
         startActivity(this)
     }
