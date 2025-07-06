@@ -267,9 +267,9 @@ class ConsultationActivity : AppCompatActivity() {
                 val body = response.body()
                 val intent = Intent(this@ConsultationActivity, ResultadoCoinActivity::class.java)
                 val resultString = body?.cotacoes?.joinToString(separator = "\n") {
-                    "Paridade Compra: ${it.paridadeCompra}, Paridade Venda: ${it.paridadeVenda}, " +
-                            "Cotação Compra: ${it.cotacaoCompra}, Cotação Venda: ${it.cotacaoVenda}, " +
-                            "Data: ${it.dataHoraCotacao}, Tipo: ${it.tipoBoletim}"
+                    "Paridade Compra: ${it.paridadeCompra},\nParidade Venda: ${it.paridadeVenda},\n" +
+                            "Cotação Compra: ${it.cotacaoCompra},\nCotação Venda: ${it.cotacaoVenda},\n" +
+                            "Data: ${it.dataHoraCotacao},\nTipo: ${it.tipoBoletim}\n"
                 } ?: "Nenhuma cotação encontrada"
 
                 intent.putExtra("result",resultString)

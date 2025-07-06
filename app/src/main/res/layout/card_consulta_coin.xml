@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:ellipsize="end"
-            android:maxLines="10"
+            android:maxLines="40"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold"
