@@ -123,7 +123,6 @@ class ConsultationActivity : AppCompatActivity() {
             val dataPicker = dialogView.findViewById<DatePicker>(R.id.datePicker)
             val btnConfirm = dialogView.findViewById<Button>(R.id.btnConfirm)
             val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
-            val errorText = dialogView.findViewById<TextView>(R.id.errorTextCoin)
 
             val currencies = listOf("USD","EUR")
             val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, currencies)
@@ -262,6 +261,11 @@ class ConsultationActivity : AppCompatActivity() {
             } else {
                 Log.d("response","Falhou")
             }
+            withContext(Dispatchers.Main) {
+
+            }
+
+
         } catch (e: Exception) {
             Log.i("info_consulta", "Consulta não ocorreu: ${e.message}")
         }

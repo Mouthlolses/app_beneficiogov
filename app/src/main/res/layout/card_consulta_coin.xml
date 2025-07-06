@@ -1,6 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardConsulta"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:backgroundTint="#263238"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/paridadeCompra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/lorem/random" />
+
+        <TextView
+            android:id="@+id/paridadeVenda"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/paridadeCompra"
+            app:layout_constraintStart_toStartOf="@id/paridadeCompra"
+            app:layout_constraintTop_toBottomOf="@id/paridadeCompra"
+            tools:text="@tools:sample/lorem/random" />
+
+        <TextView
+            android:id="@+id/cotacaoCompra"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:textColor="#FFFFFF"
+            android:maxLines="2"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/paridadeVenda"
+            app:layout_constraintStart_toStartOf="@id/paridadeVenda"
+            app:layout_constraintTop_toBottomOf="@id/paridadeVenda"
+            tools:text="@tools:sample/lorem/random" />
+
+        <TextView
+            android:id="@+id/cotacaoVenda"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/cotacaoCompra"
+            app:layout_constraintStart_toStartOf="@id/cotacaoCompra"
+            app:layout_constraintTop_toBottomOf="@id/cotacaoCompra"
+            tools:text="@tools:sample/lorem/random" />
+
+        <TextView
+            android:id="@+id/dataHoraCotacao"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:textColor="#FFFFFF"
+            android:maxLines="2"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/cotacaoVenda"
+            app:layout_constraintStart_toStartOf="@id/cotacaoVenda"
+            app:layout_constraintTop_toBottomOf="@id/cotacaoVenda"
+            tools:text="@tools:sample/lorem/random" />
+
+        <TextView
+            android:id="@+id/tipoBoletim"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:ellipsize="end"
+            android:textColor="#FFFFFF"
+            android:maxLines="2"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/dataHoraCotacao"
+            app:layout_constraintStart_toStartOf="@id/dataHoraCotacao"
+            app:layout_constraintTop_toBottomOf="@id/dataHoraCotacao"
+            tools:text="@tools:sample/lorem/random" />
+
+        <TextView
+            android:id="@+id/moedaConsultada"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="#06B80F"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:drawableEndCompat="@drawable/ads_click_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tipoBoletim"
+            app:layout_constraintStart_toStartOf="@id/tipoBoletim"
+            app:layout_constraintTop_toBottomOf="@id/tipoBoletim"
+            tools:text="USD" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
