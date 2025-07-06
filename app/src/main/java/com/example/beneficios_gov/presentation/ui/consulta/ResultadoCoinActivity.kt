@@ -19,8 +19,10 @@ class ResultadoCoinActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val resultText = intent.getStringExtra("result") ?: "Nenhum Resultado"
+        val resultCoin = intent.getStringExtra("coinChose") ?: "Nenhum Resultado"
 
         binding.meuCardCoin.paridadeCompra.text = "$resultText"
+        binding.meuCardCoin.moedaConsultada.text = "$resultCoin"
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

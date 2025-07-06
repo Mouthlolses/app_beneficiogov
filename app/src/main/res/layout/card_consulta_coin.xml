@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:ellipsize="end"
-            android:maxLines="40"
+            android:maxLines="35"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -28,8 +28,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/lorem/random" />
-
-
 
         <TextView
             android:id="@+id/moedaConsultada"

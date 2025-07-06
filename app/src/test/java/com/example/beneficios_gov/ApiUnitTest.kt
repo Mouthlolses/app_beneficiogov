@@ -16,7 +16,7 @@ class ApiUnitTest {
 
     @Test
     fun buscarDadosNaApi() = runBlocking {
-        val response = coinApi.searchCotacao("USD","2025-02-13")
+        val response = coinApi.searchCotacao("EUR","2025-02-13")
 
         if(response.isSuccessful) {
             val body = response.body()

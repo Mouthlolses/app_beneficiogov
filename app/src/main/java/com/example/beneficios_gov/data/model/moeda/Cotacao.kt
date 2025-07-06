@@ -13,10 +13,10 @@ data class Cotacao(
     val dataHoraCotacao: String,
 
     @SerializedName("paridade_compra")
-    val paridadeCompra: Int,
+    val paridadeCompra: Double?,
 
     @SerializedName("paridade_venda")
-    val paridadeVenda: Int,
+    val paridadeVenda: Double?,
 
     @SerializedName("tipo_boletim")
     val tipoBoletim: String

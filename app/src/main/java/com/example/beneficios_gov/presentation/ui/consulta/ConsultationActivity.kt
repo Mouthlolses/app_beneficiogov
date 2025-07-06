@@ -19,7 +19,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.toColorInt
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
 import com.example.beneficios_gov.R
 import com.example.beneficios_gov.data.api.coinApi
 import com.example.beneficios_gov.data.api.nisApi
@@ -141,15 +140,22 @@ class ConsultationActivity : AppCompatActivity() {
 
                 val selectedDate = "$year-$month-$day"
 
-                try {
-                    lifecycleScope.launch {
-                        withContext(Dispatchers.IO) {
-                            searchCoin(selectedCurrency, selectedDate)
-                            Log.d("searchCoin", "Consulta bem sucedida")
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        withContext(Dispatchers.Main) {
+                            binding.progressBar.visibility = View.VISIBLE
+                            dialogView.visibility = View.GONE
+                        }
+                        Log.d("selectedCurrency", "Selecionado: $selectedCurrency")
+                        searchCoin(selectedCurrency, selectedDate,selectedCurrency)
+                        Log.d("searchCoin", "Consulta bem sucedida")
+                    } catch (e: Exception) {
+                        Log.d("searchCoin", "Ocorreu o erro: ${e.message}")
+                    } finally {
+                        withContext(Dispatchers.Main) {
+                            binding.progressBar.visibility = View.GONE
                         }
                     }
-                } catch (e: Exception) {
-                    Log.d("searchCoin", "Ocorreu o erro: ${e.message}")
                 }
                 Toast.makeText(
                     context,
@@ -166,7 +172,8 @@ class ConsultationActivity : AppCompatActivity() {
             goTo(HistoricoActivity::class.java)
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main))
+        { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -244,7 +251,7 @@ class ConsultationActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun searchCoin(coin: String, dataCoin: String) {
+    private suspend fun searchCoin(coin: String, dataCoin: String, coinChose: String) {
         try {
             val coinApiItem = coinApi
             val response = coinApiItem.searchCotacao(
@@ -265,6 +272,7 @@ class ConsultationActivity : AppCompatActivity() {
             }
             withContext(Dispatchers.Main) {
                 val body = response.body()
+                val selectedCurrency = coinChose
                 val intent = Intent(this@ConsultationActivity, ResultadoCoinActivity::class.java)
                 val resultString = body?.cotacoes?.joinToString(separator = "\n") {
                     "Paridade Compra: ${it.paridadeCompra},\nParidade Venda: ${it.paridadeVenda},\n" +
@@ -272,7 +280,8 @@ class ConsultationActivity : AppCompatActivity() {
                             "Data: ${it.dataHoraCotacao},\nTipo: ${it.tipoBoletim}\n"
                 } ?: "Nenhuma cotação encontrada"
 
-                intent.putExtra("result",resultString)
+                intent.putExtra("result", resultString)
+                intent.putExtra("coinChose",selectedCurrency)
                 startActivity(intent)
             }
 
