@@ -6,7 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.DatePicker
+import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.toColorInt
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.beneficios_gov.R
 import com.example.beneficios_gov.data.api.coinApi
 import com.example.beneficios_gov.data.api.nisApi
@@ -105,6 +111,53 @@ class ConsultationActivity : AppCompatActivity() {
             }
             alertDialog.show()
         }
+        binding.cardView2.setOnClickListener {
+            val context = it.context
+
+            val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_coin, null)
+            val dialogBuilder =  AlertDialog.Builder(context).setView(dialogView)
+
+            val alertDialog = dialogBuilder.create()
+
+            val spinner = dialogView.findViewById<Spinner>(R.id.spinnerCoin)
+            val dataPicker = dialogView.findViewById<DatePicker>(R.id.datePicker)
+            val btnConfirm = dialogView.findViewById<Button>(R.id.btnConfirm)
+            val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+            val errorText = dialogView.findViewById<TextView>(R.id.errorTextCoin)
+
+            val currencies = listOf("USD","EUR")
+            val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, currencies)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+
+            btnCancel.setOnClickListener {
+                alertDialog.dismiss()
+            }
+
+            btnConfirm.setOnClickListener {
+                val selectedCurrency = spinner.selectedItem.toString()
+                val day = dataPicker.dayOfMonth
+                val month = dataPicker.month
+                val year = dataPicker.year
+
+                val selectedDate = "$year-$month-$day"
+
+                    try {
+                        lifecycleScope.launch {
+                            withContext(Dispatchers.IO) {
+                                searchCoin(selectedCurrency, selectedDate)
+                                Log.d("searchCoin","Consulta bem sucedida")
+                            }
+                        }
+                    }catch (e: Exception) {
+                        Log.d("searchCoin","Ocorreu o erro: ${e.message}")
+                    }
+                Toast.makeText(context, "Moeda: $selectedCurrency\nData: $selectedDate", Toast.LENGTH_LONG).show()
+                alertDialog.dismiss()
+            }
+            alertDialog.show()
+
+        }
 
         binding.btnHistorico.setOnClickListener {
             goTo(HistoricoActivity::class.java)
@@ -179,7 +232,7 @@ class ConsultationActivity : AppCompatActivity() {
                     intent.putExtra("data", data)
                     intent.putExtra("valor", valor)
 
-                    // Iniciar a nova Activity
+
                     startActivity(intent)
                 }
             } else {
@@ -198,11 +251,19 @@ class ConsultationActivity : AppCompatActivity() {
                 data = dataCoin
             )
 
-
-
-
+            if(response.isSuccessful){
+                val body = response.body()
+                val resultText = body?.cotacoes
+                    ?.joinToString(separator = "\n"){
+                        "Venda: ${it.cotacaoCompra} | Tipo: ${it.tipoBoletim} | Hora: ${it.dataHoraCotacao}"
+                    }
+                Log.d("response","${body?.cotacoes?.size}")
+                Log.d("response", resultText ?: "Nenhuma cotação encontrada")
+            } else {
+                Log.d("response","Falhou")
+            }
         } catch (e: Exception) {
-
+            Log.i("info_consulta", "Consulta não ocorreu: ${e.message}")
         }
     }
 

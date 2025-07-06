@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="false"
@@ -17,25 +16,27 @@
         android:theme="@style/Theme.Beneficios_gov"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ui.consulta.ResultadoCoinActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.consulta.DetalhesConsultaActivity"
             android:exported="false"
             android:parentActivityName=".presentation.ui.consulta.HistoricoActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.ui.consulta.ResultadoActivity"
             android:exported="false"
             android:parentActivityName=".presentation.ui.consulta.ConsultationActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.ui.consulta.HistoricoActivity"
             android:exported="false"
             android:parentActivityName=".presentation.ui.consulta.ConsultationActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.ui.consulta.ConsultationActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.ui.home.HomeActivity"
             android:exported="true"
