@@ -115,7 +115,7 @@ class ConsultationActivity : AppCompatActivity() {
             val context = it.context
 
             val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_coin, null)
-            val dialogBuilder =  AlertDialog.Builder(context).setView(dialogView)
+            val dialogBuilder = AlertDialog.Builder(context).setView(dialogView)
 
             val alertDialog = dialogBuilder.create()
 
@@ -124,7 +124,7 @@ class ConsultationActivity : AppCompatActivity() {
             val btnConfirm = dialogView.findViewById<Button>(R.id.btnConfirm)
             val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
 
-            val currencies = listOf("USD","EUR")
+            val currencies = listOf("USD", "EUR")
             val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, currencies)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
@@ -141,17 +141,21 @@ class ConsultationActivity : AppCompatActivity() {
 
                 val selectedDate = "$year-$month-$day"
 
-                    try {
-                        lifecycleScope.launch {
-                            withContext(Dispatchers.IO) {
-                                searchCoin(selectedCurrency, selectedDate)
-                                Log.d("searchCoin","Consulta bem sucedida")
-                            }
+                try {
+                    lifecycleScope.launch {
+                        withContext(Dispatchers.IO) {
+                            searchCoin(selectedCurrency, selectedDate)
+                            Log.d("searchCoin", "Consulta bem sucedida")
                         }
-                    }catch (e: Exception) {
-                        Log.d("searchCoin","Ocorreu o erro: ${e.message}")
                     }
-                Toast.makeText(context, "Moeda: $selectedCurrency\nData: $selectedDate", Toast.LENGTH_LONG).show()
+                } catch (e: Exception) {
+                    Log.d("searchCoin", "Ocorreu o erro: ${e.message}")
+                }
+                Toast.makeText(
+                    context,
+                    "Moeda: $selectedCurrency\nData: $selectedDate",
+                    Toast.LENGTH_LONG
+                ).show()
                 alertDialog.dismiss()
             }
             alertDialog.show()
@@ -205,11 +209,9 @@ class ConsultationActivity : AppCompatActivity() {
                 }
 
                 withContext(Dispatchers.Main) {
-                    // Criando um Intent para a nova Activity
                     val intent =
                         Intent(this@ConsultationActivity, ResultadoActivity::class.java)
 
-                    // Exemplo de como passar dados para a nova activity (pode ser um nome ou uma lista)
                     val id = body?.firstOrNull()?.idAPi
                     val nome =
                         body?.firstOrNull()?.beneficiarioNovoBolsaFamilia?.nome
@@ -250,21 +252,29 @@ class ConsultationActivity : AppCompatActivity() {
                 data = dataCoin
             )
 
-            if(response.isSuccessful){
+            if (response.isSuccessful) {
                 val body = response.body()
                 val resultText = body?.cotacoes
-                    ?.joinToString(separator = "\n"){
+                    ?.joinToString(separator = "\n") {
                         "Venda: ${it.cotacaoCompra} | Tipo: ${it.tipoBoletim} | Hora: ${it.dataHoraCotacao}"
                     }
-                Log.d("response","${body?.cotacoes?.size}")
+                Log.d("response", "${body?.cotacoes?.size}")
                 Log.d("response", resultText ?: "Nenhuma cotação encontrada")
             } else {
-                Log.d("response","Falhou")
+                Log.d("response", "Falhou")
             }
             withContext(Dispatchers.Main) {
+                val body = response.body()
+                val intent = Intent(this@ConsultationActivity, ResultadoCoinActivity::class.java)
+                val resultString = body?.cotacoes?.joinToString(separator = "\n") {
+                    "Paridade Compra: ${it.paridadeCompra}, Paridade Venda: ${it.paridadeVenda}, " +
+                            "Cotação Compra: ${it.cotacaoCompra}, Cotação Venda: ${it.cotacaoVenda}, " +
+                            "Data: ${it.dataHoraCotacao}, Tipo: ${it.tipoBoletim}"
+                } ?: "Nenhuma cotação encontrada"
 
+                intent.putExtra("result",resultString)
+                startActivity(intent)
             }
-
 
         } catch (e: Exception) {
             Log.i("info_consulta", "Consulta não ocorreu: ${e.message}")
