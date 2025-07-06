@@ -14,7 +14,6 @@ import kotlin.test.assertTrue
  */
 class ApiUnitTest {
 
-
     @Test
     fun buscarDadosNaApi() = runBlocking {
         val response = coinApi.searchCotacao("USD","2025-02-13")
