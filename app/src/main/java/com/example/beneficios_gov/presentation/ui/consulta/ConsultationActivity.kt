@@ -12,6 +12,7 @@ import android.widget.DatePicker
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -192,6 +193,7 @@ class ConsultationActivity : AppCompatActivity() {
     }
 
 
+    @VisibleForTesting
     private suspend fun searchNis(nis: String, data: String) {
         try {
             val nisApiItem = nisApi
@@ -247,6 +249,7 @@ class ConsultationActivity : AppCompatActivity() {
         }
     }
 
+    @VisibleForTesting
     private suspend fun searchCoin(coin: String, dataCoin: String, coinChose: String) {
         try {
             val coinApiItem = coinApi
