@@ -15,8 +15,6 @@ import com.example.beneficios_gov.data.model.nis.Municipio
 import com.example.beneficios_gov.data.model.nis.Uf
 import com.example.beneficios_gov.database.AppDatabase
 import com.example.beneficios_gov.databinding.ActivityResultadoBinding
-import com.example.beneficios_gov.extensions.goTo
-import com.example.beneficios_gov.presentation.ui.consulta.ConsultationActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
