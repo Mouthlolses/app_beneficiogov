@@ -16,21 +16,21 @@
         android:theme="@style/Theme.Beneficios_gov"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.ui.consulta.ResultadoCoinActivity"
+            android:name=".presentation.ui.resultado.ResultadoCoinActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".presentation.ui.consulta.DetalhesConsultaActivity"
             android:exported="false"
-            android:parentActivityName=".presentation.ui.consulta.HistoricoActivity"
+            android:parentActivityName=".presentation.ui.consulta.HistoricoConsultaActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.consulta.ResultadoActivity"
+            android:name=".presentation.ui.resultado.ResultadoActivity"
             android:exported="false"
             android:parentActivityName=".presentation.ui.consulta.ConsultationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.consulta.HistoricoActivity"
+            android:name=".presentation.ui.consulta.HistoricoConsultaActivity"
             android:exported="false"
             android:parentActivityName=".presentation.ui.consulta.ConsultationActivity"
             android:screenOrientation="portrait" />

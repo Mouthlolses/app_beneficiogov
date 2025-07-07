@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.consulta.ResultadoActivity">
+    tools:context=".presentation.ui.resultado.ResultadoActivity">
 
     <include
         android:id="@+id/includedToolBarResultActivity"

@@ -18,7 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HistoricoActivity : AppCompatActivity() {
+class HistoricoConsultaActivity : AppCompatActivity() {
 
     private val adapter = ListaConsultaAdapter(context = this)
 

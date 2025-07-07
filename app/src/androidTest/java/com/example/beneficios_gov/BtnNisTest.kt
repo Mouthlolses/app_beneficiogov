@@ -9,7 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.beneficios_gov.presentation.ui.consulta.ConsultationActivity
-import com.example.beneficios_gov.presentation.ui.consulta.ResultadoActivity
+import com.example.beneficios_gov.presentation.ui.resultado.ResultadoActivity
 import org.junit.Test
 import org.junit.runner.RunWith
 

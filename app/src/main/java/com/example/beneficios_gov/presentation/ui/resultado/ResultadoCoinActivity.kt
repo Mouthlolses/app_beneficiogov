@@ -1,4 +1,4 @@
-package com.example.beneficios_gov.presentation.ui.consulta
+package com.example.beneficios_gov.presentation.ui.resultado
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

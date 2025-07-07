@@ -26,6 +26,8 @@ import com.example.beneficios_gov.databinding.ActivityConsultationBinding
 import com.example.beneficios_gov.extensions.goTo
 import com.example.beneficios_gov.notification.configureNotification
 import com.example.beneficios_gov.presentation.ui.REQUEST_CODE_POST_NOTIFICATIONS
+import com.example.beneficios_gov.presentation.ui.resultado.ResultadoActivity
+import com.example.beneficios_gov.presentation.ui.resultado.ResultadoCoinActivity
 import com.example.beneficios_gov.utils.exibirMensagem
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.CoroutineScope
@@ -157,11 +159,6 @@ class ConsultationActivity : AppCompatActivity() {
                         }
                     }
                 }
-                Toast.makeText(
-                    context,
-                    "Moeda: $selectedCurrency\nData: $selectedDate",
-                    Toast.LENGTH_LONG
-                ).show()
                 alertDialog.dismiss()
             }
             alertDialog.show()
@@ -169,7 +166,7 @@ class ConsultationActivity : AppCompatActivity() {
         }
 
         binding.btnHistorico.setOnClickListener {
-            goTo(HistoricoActivity::class.java)
+            goTo(HistoricoConsultaActivity::class.java)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main))

@@ -1,4 +1,4 @@
-package com.example.beneficios_gov.presentation.ui.consulta
+package com.example.beneficios_gov.presentation.ui.resultado
 
 import android.os.Bundle
 import android.view.View
@@ -16,6 +16,7 @@ import com.example.beneficios_gov.data.model.nis.Uf
 import com.example.beneficios_gov.database.AppDatabase
 import com.example.beneficios_gov.databinding.ActivityResultadoBinding
 import com.example.beneficios_gov.extensions.goTo
+import com.example.beneficios_gov.presentation.ui.consulta.ConsultationActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,7 +30,7 @@ class ResultadoActivity : AppCompatActivity() {
     private var consultaId = 0
 
     private val consultaNisDao: ConsultaNisDao by lazy {
-        val db = AppDatabase.instance(this)
+        val db = AppDatabase.Companion.instance(this)
         db.consultaNisItem()
     }
 
@@ -66,7 +67,6 @@ class ResultadoActivity : AppCompatActivity() {
 
     private fun configuraBotaoNovaConsulta() {
         binding.btnNovaConsulta.setOnClickListener {
-            goTo(ConsultationActivity::class.java)
             finish()
         }
     }
