@@ -14,7 +14,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun consultaNisItem(): ConsultaNisDao
 
     companion object {
-
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
