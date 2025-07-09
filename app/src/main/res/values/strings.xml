@@ -22,4 +22,8 @@
     <string name="excluir">Excluir</string>
     <string name="cotacao">Cotação</string>
     <string name="realizar_nova_consulta">Realizar nova consulta</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="digite_seu_nis">Digite seu <b>NIS</b>:</string>
+    <string name="informe_a_data_que_deseja_consultar">Informe a <b>data</b> que deseja consultar:</string>
 </resources>

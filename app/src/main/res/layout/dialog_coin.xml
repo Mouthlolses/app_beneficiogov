@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="24dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/errorTextCoin"
-        android:layout_height="match_parent"
-        android:layout_width="wrap_content"
-        android:textColor="#FF0000"
-        android:textSize="16sp"
-        android:visibility="gone" />
+    android:orientation="vertical"
+    android:padding="24dp">
 
     <!-- Spinner de Moeda -->
     <TextView
@@ -30,36 +21,37 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Selecionar data:"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:text="Selecionar data:" />
 
     <DatePicker
         android:id="@+id/datePicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:calendarViewShown="true"
-        android:spinnersShown="false"/>
+        android:spinnersShown="false" />
 
     <!-- Botões -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
         android:gravity="end"
-        android:layout_marginTop="16dp">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancelar" />
+            android:backgroundTint="#FF0000"
+            android:text="@string/cancelar" />
 
         <Button
             android:id="@+id/btnConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Confirmar"
-            android:layout_marginStart="16dp" />
+            android:layout_marginStart="16dp"
+            android:text="@string/confirmar" />
     </LinearLayout>
 
 

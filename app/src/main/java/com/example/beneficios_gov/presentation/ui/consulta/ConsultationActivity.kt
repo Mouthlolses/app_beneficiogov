@@ -52,33 +52,25 @@ class ConsultationActivity : AppCompatActivity() {
         binding.cardView.setOnClickListener {
             val context = it.context
 
-            val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_nis, null)
-            val editText = dialogView.findViewById<TextInputEditText>(R.id.editTextInputCpf)
-            val editText2 = dialogView.findViewById<TextInputEditText>(R.id.editTextInputData)
-            val errorEditText = dialogView.findViewById<TextView>(R.id.errorTextView)
+            val dialogNisView = LayoutInflater.from(context).inflate(R.layout.dialog_nis, null)
+            val alertDialogBuilder = AlertDialog.Builder(context).setView(dialogNisView)
+            val alertDialog = alertDialogBuilder.create()
 
+            val editText = dialogNisView.findViewById<TextInputEditText>(R.id.editTextInputCpf)
+            val editText2 = dialogNisView.findViewById<TextInputEditText>(R.id.editTextInputData)
+            val errorEditText = dialogNisView.findViewById<TextView>(R.id.errorTextView)
+            val btnNisConfirm = dialogNisView.findViewById<Button>(R.id.btnNisConfirm)
+            val btnNisCancel = dialogNisView.findViewById<Button>(R.id.btnNisCancel)
 
-            val alertDialog = AlertDialog.Builder(context)
-                .setTitle(
-                    "> Digite o seu NIS\n" +
-                            "> Digite a Data Referência\n"
-                )
-                .setView(dialogView)
-                .setPositiveButton("CONSULTAR", null)
-                .setNegativeButton("Fechar", null)
-                .create()
 
             alertDialog.setOnShowListener {
-                val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                val positiveButton = btnNisConfirm
+                val negativeButton = btnNisCancel
 
-                positiveButton?.setTextColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.verde_esmeralda
-                    )
-                )
-                negativeButton?.setTextColor(ContextCompat.getColor(context, R.color.gray))
+                negativeButton.setOnClickListener {
+                    alertDialog.dismiss()
+                }
+
                 positiveButton.setOnClickListener {
                     val userInput = editText.text?.toString()?.trim() ?: ""
                     val userInputData = editText2.text?.toString()?.trim() ?: ""
@@ -96,7 +88,7 @@ class ConsultationActivity : AppCompatActivity() {
                             try {
                                 withContext(Dispatchers.Main) {
                                     binding.progressBar.visibility = View.VISIBLE
-                                    dialogView.visibility = View.GONE
+                                    dialogNisView.visibility = View.GONE
                                 }
                                 searchNis(userInput, userInputData)
                             } catch (e: Exception) {
@@ -149,7 +141,7 @@ class ConsultationActivity : AppCompatActivity() {
                             dialogView.visibility = View.GONE
                         }
                         Log.d("selectedCurrency", "Selecionado: $selectedCurrency")
-                        searchCoin(selectedCurrency, selectedDate,selectedCurrency)
+                        searchCoin(selectedCurrency, selectedDate, selectedCurrency)
                         Log.d("searchCoin", "Consulta bem sucedida")
                     } catch (e: Exception) {
                         Log.d("searchCoin", "Ocorreu o erro: ${e.message}")
@@ -280,7 +272,7 @@ class ConsultationActivity : AppCompatActivity() {
                 } ?: "Nenhuma cotação encontrada"
 
                 intent.putExtra("result", resultString)
-                intent.putExtra("coinChose",selectedCurrency)
+                intent.putExtra("coinChose", selectedCurrency)
                 startActivity(intent)
             }
 

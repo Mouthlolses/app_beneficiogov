@@ -4,30 +4,38 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="24dp">
 
     <TextView
         android:id="@+id/errorTextView"
-        android:layout_height="match_parent"
         android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="6dp"
         android:textColor="#FF0000"
         android:textSize="16sp"
         android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/textViewNis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/digite_seu_nis"
+        android:textSize="16sp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/TextInputLayoutCpf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="6dp"
         android:hint="@string/cpfInfo"
-        app:hintTextColor="@color/gray"
         app:boxBackgroundMode="filled"
         app:boxCornerRadiusBottomEnd="12dp"
         app:boxCornerRadiusBottomStart="12dp"
         app:boxCornerRadiusTopEnd="12dp"
         app:boxCornerRadiusTopStart="12dp"
         app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp">
+        app:boxStrokeWidthFocused="0dp"
+        app:hintTextColor="@color/gray">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextInputCpf"
@@ -42,20 +50,28 @@
             app:boxBackgroundColor="@color/blue_light" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/textViewData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/informe_a_data_que_deseja_consultar"
+        android:textSize="16sp" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/TextInputLayoutData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="6dp"
         android:hint="@string/dataInfo"
-        app:hintTextColor="@color/gray"
         app:boxBackgroundMode="filled"
         app:boxCornerRadiusBottomEnd="12dp"
         app:boxCornerRadiusBottomStart="12dp"
         app:boxCornerRadiusTopEnd="12dp"
         app:boxCornerRadiusTopStart="12dp"
         app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp">
+        app:boxStrokeWidthFocused="0dp"
+        app:hintTextColor="@color/gray">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextInputData"
@@ -69,5 +85,29 @@
             android:paddingBottom="1dp"
             app:boxBackgroundColor="@color/blue_light" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnNisCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF0000"
+            android:text="@string/cancelar" />
+
+        <Button
+            android:id="@+id/btnNisConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/confirmar" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
