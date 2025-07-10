@@ -26,4 +26,6 @@
     <string name="cancelar">Cancelar</string>
     <string name="digite_seu_nis">Digite seu <b>NIS</b></string>
     <string name="informe_a_data_que_deseja_consultar">Informe a <b>data</b> que deseja consultar</string>
+    <string name="selecionar_moeda">Selecionar moeda:</string>
+    <string name="selecionar_data">Selecionar data:</string>
 </resources>
