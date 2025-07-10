@@ -19,23 +19,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonElevated"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/rounded_border"
-        android:backgroundTint="@color/white"
+        android:layout_marginBottom="52dp"
+        android:clickable="true"
         android:text="@string/access"
+        android:textAlignment="textStart"
         android:textAllCaps="false"
-        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:backgroundTint="#43A047"
+        app:cornerRadius="100dp"
+        app:elevation="8dp"
+        app:icon="@drawable/ic_arrow_forward"
+        app:iconGravity="end"
+        app:iconPadding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.86" />
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
