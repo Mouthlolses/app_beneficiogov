@@ -39,6 +39,7 @@ class ConsultationActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityConsultationBinding.inflate(layoutInflater)
     }
+    var isMenuOpen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -157,8 +158,20 @@ class ConsultationActivity : AppCompatActivity() {
         }
 
         binding.btnHistorico.setOnClickListener {
+            if (isMenuOpen) {
+                binding.fabBagFamily.hide()
+                binding.fabCotacoes.hide()
+            } else {
+                binding.fabBagFamily.show()
+                binding.fabCotacoes.show()
+            }
+            isMenuOpen = !isMenuOpen
+        }
+
+        binding.fabBagFamily.setOnClickListener {
             goTo(HistoricoConsultaActivity::class.java)
         }
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main))
         { v, insets ->

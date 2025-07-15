@@ -133,6 +133,40 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabBagFamily"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="130dp"
+        android:contentDescription="Opção 1"
+        android:text="Bolsa Família"
+        android:visibility="gone"
+        app:backgroundTint="@color/white"
+        app:icon="@drawable/ads_click"
+        app:iconGravity="end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible" />
+
+    <!-- FAB secundário 2 -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabCotacoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="200dp"
+        android:contentDescription="Opção 2"
+        android:text="Cotações"
+        android:visibility="gone"
+        app:backgroundTint="@color/white"
+        app:icon="@drawable/ads_click"
+        app:iconGravity="end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible" />
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btnHistorico"
         android:layout_width="wrap_content"
