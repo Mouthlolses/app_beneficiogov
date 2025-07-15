@@ -5,46 +5,69 @@
     android:id="@+id/cardConsulta"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:maxHeight="600dp"
     android:layout_margin="8dp"
     android:backgroundTint="#263238"
     app:cardCornerRadius="16dp"
     app:cardElevation="8dp">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="600dp">
 
-        <TextView
-            android:id="@+id/paridadeCompra"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:ellipsize="end"
-            android:maxLines="35"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@tools:sample/lorem/random" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/moedaConsultada"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:textColor="#06B80F"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:drawableEndCompat="@drawable/ads_click_white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/paridadeCompra"
-            app:layout_constraintStart_toStartOf="@id/paridadeCompra"
-            app:layout_constraintTop_toBottomOf="@id/paridadeCompra"
-            tools:text="USD" />
+            <TextView
+                android:id="@+id/paridadeCompra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:ellipsize="end"
+                android:maxLines="35"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@tools:sample/lorem/random" />
 
+            <TextView
+                android:id="@+id/moedaConsultada"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:textColor="#06B80F"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:drawableEndCompat="@drawable/ads_click_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/paridadeCompra"
+                app:layout_constraintStart_toStartOf="@id/paridadeCompra"
+                app:layout_constraintTop_toBottomOf="@id/paridadeCompra"
+                tools:text="USD" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/setaRolagem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="16dp"
+                android:alpha="0.5"
+                android:src="@drawable/ic_arrow_downward"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/guideline3"
+                tools:layout_editor_absoluteY="547dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="245dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </com.google.android.material.card.MaterialCardView>
