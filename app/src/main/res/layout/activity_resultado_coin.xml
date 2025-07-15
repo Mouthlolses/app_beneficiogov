@@ -26,7 +26,7 @@
 
 
         <Button
-            android:id="@+id/btnSalvar"
+            android:id="@+id/btnSalvarCoin"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="24dp"
@@ -36,13 +36,13 @@
             android:elevation="8dp"
             android:text="@string/salvar"
             app:cornerRadius="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/btnNovaConsulta"
+            app:layout_constraintBottom_toTopOf="@+id/btnNovaConsultaCoin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/btnNovaConsulta"
+            android:id="@+id/btnNovaConsultaCoin"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="24dp"
