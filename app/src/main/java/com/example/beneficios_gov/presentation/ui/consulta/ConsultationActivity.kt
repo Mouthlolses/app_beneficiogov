@@ -12,6 +12,7 @@ import android.widget.DatePicker
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -39,6 +40,7 @@ class ConsultationActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityConsultationBinding.inflate(layoutInflater)
     }
+
     var isMenuOpen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,10 +78,10 @@ class ConsultationActivity : AppCompatActivity() {
                     val userInputData = editText2.text?.toString()?.trim() ?: ""
 
                     if (userInput.isEmpty() || userInputData.isEmpty()) {
-                        errorEditText.text = "Por favor, preencha todos os campos."
+                        errorEditText.text = "Por favor, preencha todos os campos"
                         errorEditText.visibility = View.VISIBLE
                     } else if (userInput.length != 11 || userInputData.length != 6) {
-                        errorEditText.text = "NIS deve ter 11 dígitos e Data 6 (MMYYYY)."
+                        errorEditText.text = "NIS deve ter 11 dígitos e Data 6 (MMYYYY)"
                         errorEditText.visibility = View.VISIBLE
                     } else {
                         errorEditText.visibility = View.GONE
