@@ -53,6 +53,8 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     ksp(libs.androidx.room.compiler.v252)
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.ui.android)
