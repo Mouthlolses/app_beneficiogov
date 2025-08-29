@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "beneficios_gov"
 include(":app")
+include(":core")
